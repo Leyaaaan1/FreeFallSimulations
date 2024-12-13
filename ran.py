@@ -14,8 +14,6 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    elif event.type = KE
-
 
     pygame.draw.rect(screen, (255,255,255), (100, 100, 100,100))
     pygame.display.flip()
