@@ -1,9 +1,6 @@
 {
   "buildCommand": "pip install -r requirements.txt",
-  "runtime": "python3.12",
   "functions": {
-    "freefall_web/App.py": {
-      "runtime": "python3.12"
-    }
+    "freefall_web/App.py": {}
   }
 }
