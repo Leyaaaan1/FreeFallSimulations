@@ -1,0 +1,9 @@
+# Web Framework
+Flask==3.0.3
+Werkzeug==3.0.3
+
+# Production Server
+gunicorn==23.0.0
+
+# Utilities
+python-dotenv==1.0.0
