@@ -1,6 +1,3 @@
 {
-  "buildCommand": "pip install -r requirements.txt",
-  "functions": {
-    "freefall_web/App.py": {}
-  }
+  "buildCommand": "pip install -r requirements.txt"
 }

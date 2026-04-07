@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🪐 Planetary Free-Fall Simulator</title>
+
+    <!-- FontAwesome 6 Free — CDN, no download needed -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          crossorigin="anonymous" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap"
+          rel="stylesheet" />
+
+    <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+<!-- ── Header ────────────────────────────────────────────────────────────────── -->
+<header>
+    <div class="header-inner">
+        <div class="logo">
+            <i class="fa-solid fa-meteor logo-icon"></i>
+            <span>FreeFall<em>Lab</em></span>
+        </div>
+        <p class="tagline">Drop anything. On every planet. With real physics.</p>
+    </div>
+</header>
+
+<!-- ── Main layout ───────────────────────────────────────────────────────────── -->
+<main>
+
+    <!-- ── LEFT PANEL – controls ──────────────────────────────────────────────── -->
+    <aside class="panel panel-controls">
+
+        <!-- Mass -->
+        <section class="ctrl-section">
+            <label class="ctrl-label">
+                <i class="fa-solid fa-weight-hanging"></i> Object Mass
+            </label>
+            <div class="mass-row">
+                <input id="mass-input" type="number" min="0.001" step="any"
+                       value="1" placeholder="kg" />
+                <span class="unit-badge">kg</span>
+            </div>
+            <div class="mass-presets">
+                <button class="preset-btn" data-mass="0.001">1 g</button>
+                <button class="preset-btn" data-mass="0.057">Tennis</button>
+                <button class="preset-btn" data-mass="7.26">Shot put</button>
+                <button class="preset-btn" data-mass="80">Human</button>
+                <button class="preset-btn" data-mass="1000">1 t</button>
+            </div>
+        </section>
+
+        <!-- Drop height -->
+        <section class="ctrl-section">
+            <label class="ctrl-label">
+                <i class="fa-solid fa-ruler-vertical"></i> Drop Height
+            </label>
+            <div class="height-btns">
+                <button class="height-btn active" data-h="50">50 m</button>
+                <button class="height-btn" data-h="80">80 m</button>
+                <button class="height-btn active-default" data-h="100">100 m</button>
+                <button class="height-btn" data-h="150">150 m</button>
+                <button class="height-btn" data-h="300">300 m</button>
+            </div>
+        </section>
+
+        <!-- Shape / drag profile -->
+        <section class="ctrl-section">
+            <label class="ctrl-label">
+                <i class="fa-solid fa-wind"></i> Drag Profile
+            </label>
+            <div class="shape-btns">
+                <button class="shape-btn active" data-shape="circle">
+                    <i class="fa-solid fa-circle"></i> Circle <em>Cd 0.47</em>
+                </button>
+                <button class="shape-btn" data-shape="square">
+                    <i class="fa-solid fa-square"></i> Square <em>Cd 1.05</em>
+                </button>
+                <button class="shape-btn" data-shape="rocket">
+                    <i class="fa-solid fa-rocket"></i> Rocket <em>Cd 0.08</em>
+                </button>
+            </div>
+        </section>
+
+        <!-- Icon picker -->
+        <section class="ctrl-section">
+            <label class="ctrl-label">
+                <i class="fa-solid fa-icons"></i> Object Icon
+                <span class="badge-cdn">FA CDN</span>
+            </label>
+            <div class="icon-search-row">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input id="icon-search" type="text" placeholder="Search icons… e.g. ball, rocket" />
+            </div>
+            <div id="icon-grid" class="icon-grid"></div>
+            <div class="selected-icon-row" id="selected-icon-row" style="display:none">
+                Selected: <i id="selected-icon-preview"></i>
+                <span id="selected-icon-name"></span>
+                <button id="clear-icon-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+        </section>
+
+        <!-- Run button -->
+        <button id="run-btn" class="run-btn">
+            <i class="fa-solid fa-play"></i> Launch Simulation
+        </button>
+
+    </aside>
+
+    <!-- ── CENTER – simulation canvas ─────────────────────────────────────────── -->
+    <section class="panel panel-sim">
+        <div class="sim-header">
+            <span id="sim-title" class="sim-title">Configure and launch →</span>
+            <div class="sim-controls">
+                <button id="pause-btn" class="icon-ctrl-btn" title="Pause / Resume" disabled>
+                    <i class="fa-solid fa-pause"></i>
+                </button>
+                <button id="restart-btn" class="icon-ctrl-btn" title="Restart" disabled>
+                    <i class="fa-solid fa-rotate-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="sim-stage" class="sim-stage">
+            <div class="sim-placeholder">
+                <i class="fa-solid fa-globe fa-spin-pulse"></i>
+                <p>Set your parameters and hit<br/><strong>Launch Simulation</strong></p>
+            </div>
+        </div>
+
+        <!-- Speed legend -->
+        <div class="speed-legend">
+            <span><i class="fa-solid fa-circle" style="color:#6495ed"></i> slow</span>
+            <span><i class="fa-solid fa-circle" style="color:#ffd700"></i> medium</span>
+            <span><i class="fa-solid fa-circle" style="color:#ff4444"></i> fast</span>
+        </div>
+    </section>
+
+    <!-- ── RIGHT PANEL – results table ────────────────────────────────────────── -->
+    <aside class="panel panel-results">
+        <div class="results-header">
+            <h2><i class="fa-solid fa-chart-bar"></i> Results</h2>
+            <select id="sort-select">
+                <option value="fall_time">Sort: Fall Time</option>
+                <option value="final_velocity">Sort: Velocity</option>
+                <option value="ke_impact">Sort: KE Impact</option>
+                <option value="gravity">Sort: Gravity</option>
+            </select>
+        </div>
+        <div id="results-table" class="results-table">
+            <div class="results-empty">
+                <i class="fa-solid fa-satellite-dish"></i>
+                <p>Results will appear here</p>
+            </div>
+        </div>
+    </aside>
+
+</main>
+
+<!-- ── Footer ────────────────────────────────────────────────────────────────── -->
+<footer>
+    <span>Icons via <a href="https://fontawesome.com" target="_blank">FontAwesome 6 Free</a> CDN</span>
+    <span>Physics: numerical integration · drag · per-planet atmosphere</span>
+</footer>
+
+<script src="/static/js/sim.js"></script>
+</body>
+</html>
