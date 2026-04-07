@@ -20,10 +20,13 @@ from freefall_web.physics import (
 
 
 # Fix 2: Configure Flask to find templates and static files
+api_dir = os.path.dirname(os.path.abspath(__file__))
+root_dir = os.path.dirname(api_dir)
+
 app = Flask(
     __name__,
-    template_folder=os.path.join(os.path.dirname(__file__), '..', 'templates'),
-    static_folder=os.path.join(os.path.dirname(__file__), '..', 'static'),
+    template_folder=os.path.join(root_dir, 'templates'),
+    static_folder=os.path.join(root_dir, 'static'),
     static_url_path='/static'
 )
 
