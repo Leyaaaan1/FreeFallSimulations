@@ -1,6 +1,3 @@
 {
-  "buildCommand": "pip install -r requirements.txt",
-  "env": {
-    "PYTHONPATH": "."
-  }
+  "buildCommand": "pip install -r requirements.txt"
 }

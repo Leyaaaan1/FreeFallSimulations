@@ -1,5 +1,6 @@
 """
-api/index.py  –  Planetary Free-Fall Web Simulator (Vercel)
+index.py – Flask application for Vercel
+Official entrypoint following Vercel's Python deployment guide
 """
 
 import os
@@ -7,22 +8,17 @@ import sys
 import math
 import re
 
-# Add root directory to Python path so we can import freefall_web
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Add root directory to path for imports
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from flask import Flask, jsonify, render_template, request
-
-# Fix 1: Import from correct path (freefall_web module)
 from freefall_web.physics import (
     PLANETARY_GRAVITY, SHAPE_PARAMS, AIR_DENSITY,
     run_all_planets, terminal_velocity, impact_description,
 )
 
-
-# Fix 2: Configure Flask to find templates and static files
-api_dir = os.path.dirname(os.path.abspath(__file__))
-root_dir = os.path.dirname(api_dir)
-
+# Initialize Flask app
+root_dir = os.path.dirname(os.path.abspath(__file__))
 app = Flask(
     __name__,
     template_folder=os.path.join(root_dir, 'templates'),
@@ -47,7 +43,6 @@ def add_security_headers(response):
 
 # ── FontAwesome free-solid icon catalogue ─────────────────────────────────────
 FA_ICONS = [
-    # physics / objects
     {"name": "circle",        "unicode": "f111", "tags": ["circle", "ball", "round", "sphere"]},
     {"name": "square",        "unicode": "f0c8", "tags": ["square", "box", "cube", "block"]},
     {"name": "rocket",        "unicode": "f135", "tags": ["rocket", "space", "launch", "missile"]},
@@ -66,9 +61,7 @@ FA_ICONS = [
     {"name": "book",          "unicode": "f02d", "tags": ["book", "read", "knowledge"]},
 ]
 
-# Valid icon names cache
 VALID_ICONS = {icon["name"] for icon in FA_ICONS} | set(SHAPE_PARAMS.keys())
-
 
 @app.route("/")
 def index():
@@ -76,32 +69,24 @@ def index():
                            planets=list(PLANETARY_GRAVITY.keys()),
                            shapes=list(SHAPE_PARAMS.keys()))
 
-
 @app.route("/api/icons")
 def search_icons():
     """Search FontAwesome icons with input sanitization."""
     try:
         q = request.args.get("q", "").lower().strip()
-
         if len(q) > 50:
             q = q[:50]
-
         if not re.match(r"^[a-z0-9\-_\s]*$", q):
             return jsonify([])
-
         if not q:
             return jsonify(FA_ICONS[:24])
-
         results = [
             icon for icon in FA_ICONS
             if q in icon["name"] or any(q in tag for tag in icon["tags"])
         ]
-
         return jsonify(results[:50])
-
     except Exception as e:
         return jsonify([]), 500
-
 
 @app.route("/api/simulate", methods=["POST"])
 def simulate():
@@ -180,14 +165,6 @@ def simulate():
     except Exception as e:
         return jsonify({"error": "Simulation failed. Please try again."}), 500
 
-
-# Fix 3: For Vercel, export the app directly (don't use if __name__ == "__main__")
-# Vercel will call this app object directly
-
 if __name__ == "__main__":
-    # Load environment variables
     port = int(os.environ.get("PORT", 5000))
-    flask_env = os.environ.get("FLASK_ENV", "development")
-    debug = flask_env == "development"
-
-    app.run(debug=debug, host="0.0.0.0", port=port)
+    app.run(debug=False, host="0.0.0.0", port=port)
