@@ -3,9 +3,106 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>🪐 Planetary Free-Fall Simulator</title>
 
-    <!-- FontAwesome 6 Free — CDN, no download needed -->
+    <!-- ══ PRIMARY SEO META ══════════════════════════════════════════════════ -->
+    <title>Free Fall Simulator – Drop Objects on Every Planet | FreeFallLab</title>
+    <meta name="description"
+          content="Interactive free-fall physics simulator for all 9 planets. Calculate fall time, impact velocity, terminal velocity & kinetic energy. Perfect for students, teachers & physics lovers." />
+    <meta name="keywords"
+          content="free fall simulator, free fall calculator, free fall formula, free fall physics, gravity calculator, planetary gravity, fall time calculator, terminal velocity calculator, physics simulation, science education, free fall equation, acceleration due to gravity, drop height calculator" />
+    <meta name="author" content="FreeFallLab" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://freefall-lab.vercel.app/" />
+
+    <!-- ══ OPEN GRAPH (Facebook / LinkedIn) ══════════════════════════════════ -->
+    <meta property="og:type"        content="website" />
+    <meta property="og:title"       content="Free Fall Simulator – Drop Objects on Every Planet" />
+    <meta property="og:description" content="Simulate free fall with real physics across Mercury, Venus, Earth, Mars, Jupiter & more. Includes drag, atmosphere, terminal velocity & kinetic energy." />
+    <meta property="og:url"         content="https://freefall-lab.vercel.app/" />
+    <meta property="og:site_name"   content="FreeFallLab" />
+    <meta property="og:image"       content="https://freefall-lab.vercel.app/static/og-image.png" />
+
+    <!-- ══ TWITTER CARD ══════════════════════════════════════════════════════ -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content="Free Fall Simulator – Every Planet, Real Physics" />
+    <meta name="twitter:description" content="Calculate free-fall time, velocity & kinetic energy across all planets. Built for physics students & curious minds." />
+    <meta name="twitter:image"       content="https://freefall-lab.vercel.app/static/og-image.png" />
+
+    <!-- ══ STRUCTURED DATA – FAQ (targets Google rich results) ══════════════ -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "What is the free fall formula?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "The free fall formula is: distance = ½ × g × t², where g is gravitational acceleration (9.81 m/s² on Earth) and t is time in seconds. For velocity: v = g × t. This assumes no air resistance."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "How long does it take an object to fall 100 meters on Earth?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "On Earth (g = 9.81 m/s²), an object falls 100 m in approximately 4.52 seconds in a vacuum. With air drag the fall time increases depending on object shape and mass."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "What is terminal velocity?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Terminal velocity is the constant speed reached when gravitational force equals air drag force. Formula: v_t = √(2mg / ρCdA), where m=mass, g=gravity, ρ=air density, Cd=drag coefficient, A=cross-sectional area."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Does mass affect free fall time?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "In a vacuum, mass does NOT affect free fall time — all objects fall at the same rate (Galileo's experiment). However, with air resistance, heavier objects with the same shape fall faster because drag is proportionally smaller relative to gravitational force."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "On which planet do objects fall the fastest?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Jupiter has the highest surface gravity at 24.79 m/s², so objects accelerate fastest there. However, Jupiter's dense atmosphere creates significant drag, limiting terminal velocity."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "What is the free fall formula on Mars?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "On Mars, gravity is 3.71 m/s². The fall distance formula is: d = ½ × 3.71 × t². To fall 100 m takes about 7.34 seconds (in vacuum). Mars has a thin atmosphere (0.020 kg/m³) so drag effects are minimal."
+                    }
+                }
+            ]
+        }
+    </script>
+
+    <!-- ══ STRUCTURED DATA – WebApplication ══════════════════════════════════ -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "FreeFallLab – Planetary Free-Fall Simulator",
+            "url": "https://freefall-lab.vercel.app/",
+            "description": "Simulate free-fall physics across all 9 planets with real gravity, atmosphere and drag calculations.",
+            "applicationCategory": "EducationalApplication",
+            "operatingSystem": "Web",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+            "educationalUse": ["Physics", "STEM", "Science Education"],
+            "audience": { "@type": "EducationalAudience", "educationalRole": "student" }
+        }
+    </script>
+
+    <!-- FontAwesome 6 Free -->
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
           crossorigin="anonymous" />
@@ -16,10 +113,300 @@
           rel="stylesheet" />
 
     <link rel="stylesheet" href="/static/css/style.css" />
+
+    <!-- ══ SEO SECTION STYLES ════════════════════════════════════════════════ -->
+    <style>
+        /* ── Variables (mirror your dark theme) ───────────────────────── */
+        :root {
+            --seo-bg:        #0a0e1a;
+            --seo-surface:   #111827;
+            --seo-border:    rgba(99,149,237,.18);
+            --seo-accent:    #6495ed;
+            --seo-gold:      #ffd700;
+            --seo-text:      #c9d6ef;
+            --seo-muted:     #6b7a9a;
+            --seo-radius:    12px;
+            --font-mono:     'Space Mono', monospace;
+            --font-sans:     'Syne', sans-serif;
+        }
+
+        /* ── SEO Hero Strip (below app header) ───────────────────────── */
+        .seo-hero {
+            background: linear-gradient(135deg,#0d1220 0%,#111c35 60%,#0a0e1a 100%);
+            border-bottom: 1px solid var(--seo-border);
+            padding: 14px 5vw;
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            flex-wrap: wrap;
+        }
+        .seo-hero__badge {
+            background: rgba(100,149,237,.12);
+            border: 1px solid rgba(100,149,237,.35);
+            border-radius: 6px;
+            padding: 4px 10px;
+            font-family: var(--font-mono);
+            font-size: .7rem;
+            color: var(--seo-accent);
+            letter-spacing: .06em;
+            white-space: nowrap;
+        }
+        .seo-hero__text {
+            font-family: var(--font-sans);
+            font-size: .82rem;
+            color: var(--seo-muted);
+            line-height: 1.5;
+        }
+        .seo-hero__text strong { color: var(--seo-text); }
+        .seo-hero__pills {
+            display: flex; gap: 12px; flex-wrap: wrap; margin-left: auto;
+        }
+        .seo-pill {
+            background: rgba(255,215,0,.07);
+            border: 1px solid rgba(255,215,0,.2);
+            color: var(--seo-gold);
+            font-family: var(--font-mono);
+            font-size: .65rem;
+            padding: 3px 9px;
+            border-radius: 20px;
+            letter-spacing: .04em;
+        }
+
+        /* ── Full SEO Content Block (below main app) ────────────────── */
+        .seo-content {
+            background: var(--seo-bg);
+            border-top: 1px solid var(--seo-border);
+            padding: 60px 5vw 80px;
+            color: var(--seo-text);
+            font-family: var(--font-sans);
+        }
+
+        /* grid layout */
+        .seo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            max-width: 1300px;
+            margin: 0 auto 48px;
+        }
+        @media(max-width:900px){
+            .seo-grid { grid-template-columns: 1fr; }
+        }
+        .seo-grid--3 { grid-template-columns: repeat(3,1fr); }
+        @media(max-width:900px){ .seo-grid--3 { grid-template-columns: 1fr; } }
+
+        .seo-card {
+            background: var(--seo-surface);
+            border: 1px solid var(--seo-border);
+            border-radius: var(--seo-radius);
+            padding: 28px 28px 24px;
+        }
+        .seo-card h2, .seo-card h3 {
+            font-family: var(--font-sans);
+            font-weight: 800;
+            margin: 0 0 16px;
+            letter-spacing: -.01em;
+        }
+        .seo-card h2 { font-size: 1.15rem; color: var(--seo-accent); }
+        .seo-card h3 { font-size: 1rem; color: var(--seo-gold); }
+
+        .seo-section-title {
+            font-family: var(--font-sans);
+            font-weight: 800;
+            font-size: 1.45rem;
+            color: #e8edf8;
+            margin: 0 auto 24px;
+            max-width: 1300px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--seo-border);
+            letter-spacing: -.02em;
+        }
+        .seo-section-title i { color: var(--seo-accent); margin-right: 8px; }
+
+        /* formula block */
+        .formula-box {
+            background: #0d1220;
+            border: 1px solid rgba(100,149,237,.25);
+            border-left: 3px solid var(--seo-accent);
+            border-radius: 8px;
+            padding: 14px 18px;
+            font-family: var(--font-mono);
+            font-size: .82rem;
+            color: #a8c4f0;
+            line-height: 1.8;
+            margin: 14px 0;
+        }
+        .formula-box .var { color: var(--seo-gold); }
+        .formula-box .eq  { color: #7af090; }
+
+        /* planet table */
+        .planet-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: .82rem;
+            font-family: var(--font-mono);
+        }
+        .planet-table th {
+            background: rgba(100,149,237,.12);
+            color: var(--seo-accent);
+            font-size: .7rem;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--seo-border);
+            text-align: left;
+        }
+        .planet-table td {
+            padding: 9px 12px;
+            border-bottom: 1px solid rgba(255,255,255,.05);
+            color: var(--seo-text);
+            vertical-align: middle;
+        }
+        .planet-table tr:last-child td { border-bottom: none; }
+        .planet-table tr:hover td { background: rgba(100,149,237,.06); }
+        .planet-emoji { font-size: 1rem; margin-right: 6px; }
+        .g-badge {
+            display: inline-block;
+            background: rgba(100,149,237,.15);
+            border-radius: 4px;
+            padding: 2px 6px;
+            color: var(--seo-accent);
+            font-size: .72rem;
+        }
+        .highlight-earth td { background: rgba(100,149,237,.07); }
+
+        /* FAQ accordion */
+        .faq-list { list-style: none; margin: 0; padding: 0; }
+        .faq-item {
+            border-bottom: 1px solid var(--seo-border);
+        }
+        .faq-q {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 18px 0;
+            text-align: left;
+            cursor: pointer;
+            color: var(--seo-text);
+            font-family: var(--font-sans);
+            font-size: .92rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: color .2s;
+        }
+        .faq-q:hover { color: var(--seo-accent); }
+        .faq-q i { color: var(--seo-accent); font-size: .8rem; transition: transform .25s; flex-shrink: 0; }
+        .faq-q.open i { transform: rotate(90deg); }
+        .faq-a {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .35s ease, padding .25s;
+            font-size: .85rem;
+            color: var(--seo-muted);
+            line-height: 1.7;
+            padding: 0 0 0 24px;
+        }
+        .faq-a.open {
+            max-height: 300px;
+            padding: 0 0 18px 24px;
+        }
+        .faq-a code {
+            background: rgba(100,149,237,.12);
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: .78rem;
+            color: var(--seo-accent);
+        }
+
+        /* Concept cards */
+        .concept-card {
+            background: var(--seo-surface);
+            border: 1px solid var(--seo-border);
+            border-radius: var(--seo-radius);
+            padding: 22px;
+            position: relative;
+            overflow: hidden;
+        }
+        .concept-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--seo-accent), transparent);
+        }
+        .concept-icon {
+            font-size: 1.6rem;
+            margin-bottom: 12px;
+            display: block;
+        }
+        .concept-card h3 {
+            font-family: var(--font-sans);
+            font-size: .9rem;
+            font-weight: 700;
+            color: #e8edf8;
+            margin: 0 0 8px;
+        }
+        .concept-card p {
+            font-size: .8rem;
+            color: var(--seo-muted);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* uses list */
+        .uses-list {
+            list-style: none;
+            margin: 0; padding: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .uses-list li {
+            font-size: .82rem;
+            color: var(--seo-muted);
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            line-height: 1.4;
+        }
+        .uses-list li i { color: var(--seo-accent); margin-top: 2px; flex-shrink: 0; }
+
+        /* internal link chips */
+        .topic-chips {
+            display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px;
+        }
+        .topic-chip {
+            background: rgba(100,149,237,.1);
+            border: 1px solid rgba(100,149,237,.25);
+            color: var(--seo-accent);
+            font-size: .72rem;
+            font-family: var(--font-mono);
+            padding: 4px 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background .2s;
+        }
+        .topic-chip:hover { background: rgba(100,149,237,.22); }
+
+        /* footer SEO note */
+        .seo-footnote {
+            max-width: 1300px;
+            margin: 32px auto 0;
+            font-size: .75rem;
+            color: var(--seo-muted);
+            line-height: 1.7;
+            border-top: 1px solid var(--seo-border);
+            padding-top: 24px;
+            font-family: var(--font-mono);
+        }
+    </style>
 </head>
 <body>
 
-<!-- ── Header ────────────────────────────────────────────────────────────────── -->
+<!-- ══ Header ════════════════════════════════════════════════════════════════ -->
 <header>
     <div class="header-inner">
         <div class="logo">
@@ -30,13 +417,28 @@
     </div>
 </header>
 
-<!-- ── Main layout ───────────────────────────────────────────────────────────── -->
+<!-- ══ SEO HERO STRIP (just below header, above controls) ════════════════════ -->
+<div class="seo-hero" aria-label="Quick reference for physics students">
+    <span class="seo-hero__badge"><i class="fa-solid fa-atom"></i> Physics Simulator</span>
+    <p class="seo-hero__text">
+        <strong>Free-fall calculator</strong> for all 9 planets —
+        compute <strong>fall time</strong>, <strong>terminal velocity</strong> &
+        <strong>kinetic energy</strong> with real drag &amp; atmosphere models.
+    </p>
+    <div class="seo-hero__pills">
+        <span class="seo-pill">d = ½gt²</span>
+        <span class="seo-pill">v = gt</span>
+        <span class="seo-pill">v_t = √(2mg/ρCdA)</span>
+        <span class="seo-pill">KE = ½mv²</span>
+    </div>
+</div>
+
+<!-- ══ Main layout ═══════════════════════════════════════════════════════════ -->
 <main>
 
-    <!-- ── LEFT PANEL – controls ──────────────────────────────────────────────── -->
+    <!-- LEFT PANEL – controls -->
     <aside class="panel panel-controls">
 
-        <!-- Mass -->
         <section class="ctrl-section">
             <label class="ctrl-label">
                 <i class="fa-solid fa-weight-hanging"></i> Object Mass
@@ -55,7 +457,6 @@
             </div>
         </section>
 
-        <!-- Drop height -->
         <section class="ctrl-section">
             <label class="ctrl-label">
                 <i class="fa-solid fa-ruler-vertical"></i> Drop Height
@@ -69,7 +470,6 @@
             </div>
         </section>
 
-        <!-- Shape / drag profile -->
         <section class="ctrl-section">
             <label class="ctrl-label">
                 <i class="fa-solid fa-wind"></i> Drag Profile
@@ -87,7 +487,6 @@
             </div>
         </section>
 
-        <!-- Icon picker -->
         <section class="ctrl-section">
             <label class="ctrl-label">
                 <i class="fa-solid fa-icons"></i> Object Icon
@@ -105,15 +504,14 @@
             </div>
         </section>
 
-        <!-- Run button -->
         <button id="run-btn" class="run-btn">
             <i class="fa-solid fa-play"></i> Launch Simulation
         </button>
 
     </aside>
 
-    <!-- ── CENTER – simulation canvas ─────────────────────────────────────────── -->
-    <section class="panel panel-sim">
+    <!-- CENTER – simulation canvas -->
+    <section class="panel panel-sim" aria-label="Free fall animation across planets">
         <div class="sim-header">
             <span id="sim-title" class="sim-title">Configure and launch →</span>
             <div class="sim-controls">
@@ -133,7 +531,6 @@
             </div>
         </div>
 
-        <!-- Speed legend -->
         <div class="speed-legend">
             <span><i class="fa-solid fa-circle" style="color:#6495ed"></i> slow</span>
             <span><i class="fa-solid fa-circle" style="color:#ffd700"></i> medium</span>
@@ -141,7 +538,7 @@
         </div>
     </section>
 
-    <!-- ── RIGHT PANEL – results table ────────────────────────────────────────── -->
+    <!-- RIGHT PANEL – results table -->
     <aside class="panel panel-results">
         <div class="results-header">
             <h2><i class="fa-solid fa-chart-bar"></i> Results</h2>
@@ -162,12 +559,346 @@
 
 </main>
 
-<!-- ── Footer ────────────────────────────────────────────────────────────────── -->
+<!-- ══ SEO CONTENT BLOCK ═════════════════════════════════════════════════════ -->
+<section class="seo-content" aria-label="Physics reference and educational content">
+
+    <!-- 1. FORMULAS SECTION ─────────────────────────────────────────────── -->
+    <h2 class="seo-section-title">
+        <i class="fa-solid fa-square-root-variable"></i>
+        Free Fall Formulas &amp; Equations Reference
+    </h2>
+
+    <div class="seo-grid">
+
+        <!-- Core equations card -->
+        <div class="seo-card">
+            <h2>Core Free Fall Equations (No Air Resistance)</h2>
+            <p style="font-size:.82rem;color:#6b7a9a;line-height:1.6;margin-bottom:12px">
+                In a vacuum, all objects fall identically regardless of mass. These are the fundamental kinematic equations every physics student needs.
+            </p>
+            <div class="formula-box">
+                <span class="var">d</span> = ½ × <span class="var">g</span> × <span class="var">t</span>²
+                <span style="color:#6b7a9a;font-size:.75rem"> &nbsp;← distance (m)</span><br/>
+                <span class="var">v</span> = <span class="var">g</span> × <span class="var">t</span>
+                <span style="color:#6b7a9a;font-size:.75rem"> &nbsp;← velocity (m/s)</span><br/>
+                <span class="var">t</span> = √(2<span class="var">d</span> / <span class="var">g</span>)
+                <span style="color:#6b7a9a;font-size:.75rem"> &nbsp;← fall time (s)</span><br/>
+                <span class="var">v²</span> = 2 × <span class="var">g</span> × <span class="var">d</span>
+                <span style="color:#6b7a9a;font-size:.75rem"> &nbsp;← velocity² shortcut</span>
+            </div>
+            <p style="font-size:.75rem;color:#6b7a9a;margin:0">
+                <strong style="color:#a8c4f0">d</strong> = distance (m) &nbsp;·&nbsp;
+                <strong style="color:#a8c4f0">g</strong> = gravity (m/s²) &nbsp;·&nbsp;
+                <strong style="color:#a8c4f0">t</strong> = time (s) &nbsp;·&nbsp;
+                <strong style="color:#a8c4f0">v</strong> = velocity (m/s)
+            </p>
+        </div>
+
+        <!-- With drag card -->
+        <div class="seo-card">
+            <h2>With Air Resistance (Drag Equation)</h2>
+            <p style="font-size:.82rem;color:#6b7a9a;line-height:1.6;margin-bottom:12px">
+                Real-world free fall includes atmospheric drag. This simulator uses numerical integration to solve these equations each 0.005s time-step.
+            </p>
+            <div class="formula-box">
+                <span class="var">F</span><sub>net</sub> = <span class="var">mg</span> − ½<span class="var">ρ</span><span class="var">Cd</span><span class="var">A</span><span class="var">v</span>²<br/>
+                <span class="var">a</span> = <span class="var">F</span><sub>net</sub> / <span class="var">m</span><br/>
+                <span class="var">v</span><sub>t</sub> = √(2<span class="var">mg</span> / <span class="var">ρCdA</span>)
+                <span style="color:#6b7a9a;font-size:.75rem"> &nbsp;← terminal velocity</span><br/>
+                <span class="var">KE</span> = ½<span class="var">mv</span>²
+                <span style="color:#6b7a9a;font-size:.75rem"> &nbsp;← kinetic energy (J)</span>
+            </div>
+            <p style="font-size:.75rem;color:#6b7a9a;margin:0">
+                <strong style="color:#a8c4f0">ρ</strong> = air density &nbsp;·&nbsp;
+                <strong style="color:#a8c4f0">Cd</strong> = drag coefficient &nbsp;·&nbsp;
+                <strong style="color:#a8c4f0">A</strong> = cross-section area
+            </p>
+        </div>
+
+    </div>
+
+    <!-- 2. PLANET FORMULA TABLE ─────────────────────────────────────────── -->
+    <h2 class="seo-section-title" style="margin-top:48px">
+        <i class="fa-solid fa-globe"></i>
+        Free Fall on Every Planet — Formula Reference Table
+    </h2>
+
+    <div class="seo-card" style="max-width:1300px;margin:0 auto 48px;overflow-x:auto">
+        <p style="font-size:.82rem;color:#6b7a9a;margin:0 0 18px;line-height:1.6">
+            Using <code style="background:rgba(100,149,237,.12);padding:2px 6px;border-radius:4px;font-family:'Space Mono',monospace;font-size:.75rem;color:#6495ed">t = √(2h / g)</code> for vacuum fall time and
+            <code style="background:rgba(100,149,237,.12);padding:2px 6px;border-radius:4px;font-family:'Space Mono',monospace;font-size:.75rem;color:#6495ed">v = g × t</code> for impact velocity. Drop height h = 100 m.
+        </p>
+        <table class="planet-table" aria-label="Free fall data for all planets">
+            <thead>
+            <tr>
+                <th>Planet</th>
+                <th>Gravity g (m/s²)</th>
+                <th>Atmosphere (kg/m³)</th>
+                <th>Fall Time 100 m (vacuum)</th>
+                <th>Impact Velocity (vacuum)</th>
+                <th>Formula: t = √(200/g)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><span class="planet-emoji">☿</span> Mercury</td>
+                <td><span class="g-badge">3.70 m/s²</span></td>
+                <td>0.000 — none</td>
+                <td>7.35 s</td>
+                <td>27.2 m/s</td>
+                <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#a8c4f0">√(200/3.70)</td>
+            </tr>
+            <tr>
+                <td><span class="planet-emoji">♀</span> Venus</td>
+                <td><span class="g-badge">8.87 m/s²</span></td>
+                <td>65.00 — very dense CO₂</td>
+                <td>4.75 s</td>
+                <td>42.1 m/s</td>
+                <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#a8c4f0">√(200/8.87)</td>
+            </tr>
+            <tr class="highlight-earth">
+                <td><span class="planet-emoji">🌍</span> <strong>Earth</strong></td>
+                <td><span class="g-badge">9.81 m/s²</span></td>
+                <td>1.225 — standard</td>
+                <td><strong>4.52 s</strong></td>
+                <td><strong>44.3 m/s</strong></td>
+                <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#a8c4f0">√(200/9.81)</td>
+            </tr>
+            <tr>
+                <td><span class="planet-emoji">♂</span> Mars</td>
+                <td><span class="g-badge">3.71 m/s²</span></td>
+                <td>0.020 — thin CO₂</td>
+                <td>7.34 s</td>
+                <td>27.2 m/s</td>
+                <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#a8c4f0">√(200/3.71)</td>
+            </tr>
+            <tr>
+                <td><span class="planet-emoji">♃</span> Jupiter</td>
+                <td><span class="g-badge">24.79 m/s²</span></td>
+                <td>1.330 — H₂/He</td>
+                <td>2.84 s</td>
+                <td>70.4 m/s</td>
+                <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#a8c4f0">√(200/24.79)</td>
+            </tr>
+            <tr>
+                <td><span class="planet-emoji">♄</span> Saturn</td>
+                <td><span class="g-badge">10.44 m/s²</span></td>
+                <td>0.190 — H₂/He</td>
+                <td>4.38 s</td>
+                <td>45.7 m/s</td>
+                <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#a8c4f0">√(200/10.44)</td>
+            </tr>
+            <tr>
+                <td><span class="planet-emoji">⛢</span> Uranus</td>
+                <td><span class="g-badge">8.69 m/s²</span></td>
+                <td>0.420 — ice giant</td>
+                <td>4.80 s</td>
+                <td>41.7 m/s</td>
+                <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#a8c4f0">√(200/8.69)</td>
+            </tr>
+            <tr>
+                <td><span class="planet-emoji">♆</span> Neptune</td>
+                <td><span class="g-badge">11.15 m/s²</span></td>
+                <td>0.450 — wind giant</td>
+                <td>4.23 s</td>
+                <td>47.2 m/s</td>
+                <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#a8c4f0">√(200/11.15)</td>
+            </tr>
+            <tr>
+                <td><span class="planet-emoji">♇</span> Pluto</td>
+                <td><span class="g-badge">0.62 m/s²</span></td>
+                <td>0.000 — trace only</td>
+                <td>17.96 s</td>
+                <td>11.1 m/s</td>
+                <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#a8c4f0">√(200/0.62)</td>
+            </tr>
+            </tbody>
+        </table>
+        <p style="font-size:.72rem;color:#6b7a9a;margin:14px 0 0;font-family:'Space Mono',monospace">
+            ⚠ Actual fall times will be longer on planets with thick atmospheres (Venus especially). Run the simulator above for drag-corrected values.
+        </p>
+    </div>
+
+    <!-- 3. KEY CONCEPTS ─────────────────────────────────────────────────── -->
+    <h2 class="seo-section-title">
+        <i class="fa-solid fa-book-open"></i>
+        Key Physics Concepts Explained
+    </h2>
+
+    <div class="seo-grid seo-grid--3" style="max-width:1300px;margin:0 auto 48px">
+
+        <div class="concept-card">
+            <span class="concept-icon">🎯</span>
+            <h3>What is Free Fall?</h3>
+            <p>Free fall is motion under gravity alone with no other forces. In a vacuum, every object — a feather or a bowling ball — falls at <strong style="color:#a8c4f0">identical acceleration</strong>. Galileo proved this at the Tower of Pisa around 1589.</p>
+        </div>
+
+        <div class="concept-card">
+            <span class="concept-icon">🌬️</span>
+            <h3>What is Terminal Velocity?</h3>
+            <p>When drag force equals gravitational force, net acceleration reaches zero and the object falls at <strong style="color:#a8c4f0">constant speed</strong>. A human skydiver reaches ~53 m/s (190 km/h) in a belly-to-earth position. A raindrop reaches ~9 m/s.</p>
+        </div>
+
+        <div class="concept-card">
+            <span class="concept-icon">📐</span>
+            <h3>Does Mass Affect Free Fall?</h3>
+            <p>In a <strong style="color:#a8c4f0">vacuum: no</strong> — Galileo's equivalence principle. With air resistance: <strong style="color:#a8c4f0">yes</strong> — heavier objects reach higher terminal velocities because drag is proportionally smaller relative to gravitational force.</p>
+        </div>
+
+        <div class="concept-card">
+            <span class="concept-icon">⚡</span>
+            <h3>Kinetic Energy at Impact</h3>
+            <p>KE = ½mv² tells you the energy transferred at impact. A 1 kg ball dropped 100 m on Earth hits with ~981 J — equivalent to a small explosion. On Jupiter the same drop produces ~2,479 J due to stronger gravity.</p>
+        </div>
+
+        <div class="concept-card">
+            <span class="concept-icon">🪐</span>
+            <h3>Why Jupiter Falls Fastest</h3>
+            <p>Jupiter's surface gravity of 24.79 m/s² is 2.53× Earth's. Objects accelerate over 2.5× faster, reaching <strong style="color:#a8c4f0">70+ m/s</strong> after just 100 m in vacuum — but Jupiter's atmosphere limits real velocities significantly.</p>
+        </div>
+
+        <div class="concept-card">
+            <span class="concept-icon">🔢</span>
+            <h3>Numerical Integration Method</h3>
+            <p>This simulator uses <strong style="color:#a8c4f0">Euler integration</strong> at Δt = 0.005 s (200 steps/sec), recalculating velocity and position with updated drag every step. This gives accurate results even when drag changes with velocity.</p>
+        </div>
+
+    </div>
+
+    <!-- 4. FAQ ──────────────────────────────────────────────────────────── -->
+    <h2 class="seo-section-title">
+        <i class="fa-solid fa-circle-question"></i>
+        Frequently Asked Questions — Free Fall Physics
+    </h2>
+
+    <div class="seo-card" style="max-width:1300px;margin:0 auto 48px">
+        <ul class="faq-list">
+
+            <li class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    <i class="fa-solid fa-chevron-right"></i>
+                    How do I calculate free fall time without air resistance?
+                </button>
+                <div class="faq-a">
+                    Use <code>t = √(2h / g)</code>. For h = 100 m on Earth (g = 9.81): t = √(200 / 9.81) = <strong>4.52 seconds</strong>. On Mars (g = 3.71): t = √(200 / 3.71) = 7.34 s. This formula assumes starting from rest (v₀ = 0).
+                </div>
+            </li>
+
+            <li class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    <i class="fa-solid fa-chevron-right"></i>
+                    What is the acceleration due to gravity on each planet?
+                </button>
+                <div class="faq-a">
+                    Earth: 9.81 m/s² · Mercury: 3.70 · Venus: 8.87 · Mars: 3.71 · Jupiter: 24.79 · Saturn: 10.44 · Uranus: 8.69 · Neptune: 11.15 · Pluto: 0.62 m/s². See the full table above for fall-time calculations.
+                </div>
+            </li>
+
+            <li class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    <i class="fa-solid fa-chevron-right"></i>
+                    How does drag coefficient (Cd) affect free fall?
+                </button>
+                <div class="faq-a">
+                    A higher Cd means more drag. A sphere has Cd ≈ 0.47, a flat plate ~1.05, a streamlined rocket as low as 0.08. The drag force is <code>F_drag = ½ρCdAv²</code>. Lower Cd → less drag → object reaches higher terminal velocity and hits harder.
+                </div>
+            </li>
+
+            <li class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    <i class="fa-solid fa-chevron-right"></i>
+                    Why does Venus have such a high atmospheric density?
+                </button>
+                <div class="faq-a">
+                    Venus's atmosphere is 96% CO₂ at ~92× Earth's surface pressure. This produces an air density of ~65 kg/m³ at the surface (vs 1.225 on Earth). This creates enormous drag — objects reach terminal velocity extremely quickly on Venus, making fall times much longer than gravity alone would suggest.
+                </div>
+            </li>
+
+            <li class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    <i class="fa-solid fa-chevron-right"></i>
+                    What is the difference between free fall and projectile motion?
+                </button>
+                <div class="faq-a">
+                    Free fall is purely vertical motion under gravity (no horizontal velocity). Projectile motion combines free fall with an initial horizontal velocity component. Both follow the same vertical equations — this simulator covers the vertical (free fall) component only.
+                </div>
+            </li>
+
+            <li class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    <i class="fa-solid fa-chevron-right"></i>
+                    How does this simulator handle planets with no atmosphere?
+                </button>
+                <div class="faq-a">
+                    Mercury and Pluto have zero atmospheric density in this model, so the drag term is 0. Objects fall in pure free fall — terminal velocity is <strong>infinite</strong> (it's never reached). The equations reduce to the simple vacuum formulas.
+                </div>
+            </li>
+
+            <li class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    <i class="fa-solid fa-chevron-right"></i>
+                    Can I use this for a physics class or homework?
+                </button>
+                <div class="faq-a">
+                    Absolutely! The simulator uses real planetary data and physically accurate drag models. The results table shows fall time, impact velocity, kinetic energy, momentum, and terminal velocity — all values you'd calculate by hand using the formulas shown above. Use it to verify your calculations or explore what-if scenarios.
+                </div>
+            </li>
+
+        </ul>
+    </div>
+
+
+
+    <!-- Topic chips for internal linking / keyword density -->
+    <div style="max-width:1300px;margin:24px auto 0">
+        <p style="font-size:.75rem;color:#6b7a9a;margin:0 0 10px;font-family:'Space Mono',monospace">Explore topics:</p>
+        <div class="topic-chips">
+            <span class="topic-chip">free fall formula</span>
+            <span class="topic-chip">terminal velocity calculator</span>
+            <span class="topic-chip">gravity on Mars</span>
+            <span class="topic-chip">Jupiter gravity m/s²</span>
+            <span class="topic-chip">kinetic energy impact</span>
+            <span class="topic-chip">free fall with air resistance</span>
+            <span class="topic-chip">drop height calculator</span>
+            <span class="topic-chip">Galileo free fall experiment</span>
+            <span class="topic-chip">drag coefficient physics</span>
+            <span class="topic-chip">planetary gravity comparison</span>
+            <span class="topic-chip">free fall acceleration</span>
+            <span class="topic-chip">physics simulation online</span>
+        </div>
+    </div>
+
+    <!-- Footnote -->
+    <p class="seo-footnote">
+        FreeFallLab uses real gravitational and atmospheric data from NASA planetary fact sheets. Physics engine: Python numerical integration (Euler method, Δt = 0.005 s). All drag calculations use cross-sectional area proportional to mass^(2/3). Results are accurate for uniform gravitational fields near planetary surfaces. Not suitable for orbital mechanics or extreme-altitude calculations.
+    </p>
+
+</section>
+
+<!-- ══ Footer ════════════════════════════════════════════════════════════════ -->
 <footer>
     <span>Icons via <a href="https://fontawesome.com" target="_blank">FontAwesome 6 Free</a> CDN</span>
     <span>Physics: numerical integration · drag · per-planet atmosphere</span>
 </footer>
+
 <script defer src="https://cdn.vercel-analytics.com/v1/script.js"></script>
 <script src="/static/js/sim.js"></script>
+
+<!-- ══ FAQ Accordion Script ═══════════════════════════════════════════════════ -->
+<script>
+    function toggleFaq(btn) {
+        const answer = btn.nextElementSibling;
+        const isOpen = answer.classList.contains('open');
+        // close all
+        document.querySelectorAll('.faq-a.open').forEach(a => a.classList.remove('open'));
+        document.querySelectorAll('.faq-q.open').forEach(b => b.classList.remove('open'));
+        // open clicked if it was closed
+        if (!isOpen) {
+            answer.classList.add('open');
+            btn.classList.add('open');
+        }
+    }
+</script>
+
 </body>
 </html>
