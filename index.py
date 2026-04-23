@@ -41,6 +41,14 @@ def add_security_headers(response):
 
     return response
 
+@app.route('/sitemap.xml')
+def sitemap():
+    return send_from_directory('static', 'sitemap.xml')
+
+@app.route('/robots.txt')
+def robots():
+    return send_from_directory('static', 'robots.txt')
+
 # ── FontAwesome free-solid icon catalogue ─────────────────────────────────────
 FA_ICONS = [
     {"name": "circle",        "unicode": "f111", "tags": ["circle", "ball", "round", "sphere"]},
