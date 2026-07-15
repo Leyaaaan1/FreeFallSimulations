@@ -132,7 +132,7 @@
 
         /* ── SEO Hero Strip (below app header) ───────────────────────── */
         .seo-hero {
-            background: linear-gradient(135deg,#0d1220 0%,#111c35 60%,#0a0e1a 100%);
+            background: var(--seo-surface);
             border-bottom: 1px solid var(--seo-border);
             padding: 14px 5vw;
             display: flex;
@@ -335,7 +335,7 @@
             position: absolute;
             top: 0; left: 0; right: 0;
             height: 2px;
-            background: linear-gradient(90deg, var(--seo-accent), transparent);
+            background: var(--seo-accent);
         }
         .concept-icon {
             font-size: 1.6rem;
@@ -717,7 +717,7 @@
             </tbody>
         </table>
         <p style="font-size:.72rem;color:#6b7a9a;margin:14px 0 0;font-family:'Space Mono',monospace">
-            ⚠ Actual fall times will be longer on planets with thick atmospheres (Venus especially). Run the simulator above for drag-corrected values.
+            Actual fall times will be longer on planets with thick atmospheres (Venus especially). Run the simulator above for drag-corrected values.
         </p>
     </div>
 
@@ -730,37 +730,37 @@
     <div class="seo-grid seo-grid--3" style="max-width:1300px;margin:0 auto 48px">
 
         <div class="concept-card">
-            <span class="concept-icon">🎯</span>
+            <span class="concept-icon"></span>
             <h3>What is Free Fall?</h3>
             <p>Free fall is motion under gravity alone with no other forces. In a vacuum, every object — a feather or a bowling ball — falls at <strong style="color:#a8c4f0">identical acceleration</strong>. Galileo proved this at the Tower of Pisa around 1589.</p>
         </div>
 
         <div class="concept-card">
-            <span class="concept-icon">🌬️</span>
+            <span class="concept-icon"></span>
             <h3>What is Terminal Velocity?</h3>
             <p>When drag force equals gravitational force, net acceleration reaches zero and the object falls at <strong style="color:#a8c4f0">constant speed</strong>. A human skydiver reaches ~53 m/s (190 km/h) in a belly-to-earth position. A raindrop reaches ~9 m/s.</p>
         </div>
 
         <div class="concept-card">
-            <span class="concept-icon">📐</span>
+            <span class="concept-icon"></span>
             <h3>Does Mass Affect Free Fall?</h3>
             <p>In a <strong style="color:#a8c4f0">vacuum: no</strong> — Galileo's equivalence principle. With air resistance: <strong style="color:#a8c4f0">yes</strong> — heavier objects reach higher terminal velocities because drag is proportionally smaller relative to gravitational force.</p>
         </div>
 
         <div class="concept-card">
-            <span class="concept-icon">⚡</span>
+            <span class="concept-icon"></span>
             <h3>Kinetic Energy at Impact</h3>
             <p>KE = ½mv² tells you the energy transferred at impact. A 1 kg ball dropped 100 m on Earth hits with ~981 J — equivalent to a small explosion. On Jupiter the same drop produces ~2,479 J due to stronger gravity.</p>
         </div>
 
         <div class="concept-card">
-            <span class="concept-icon">🪐</span>
+            <span class="concept-icon"></span>
             <h3>Why Jupiter Falls Fastest</h3>
             <p>Jupiter's surface gravity of 24.79 m/s² is 2.53× Earth's. Objects accelerate over 2.5× faster, reaching <strong style="color:#a8c4f0">70+ m/s</strong> after just 100 m in vacuum — but Jupiter's atmosphere limits real velocities significantly.</p>
         </div>
 
         <div class="concept-card">
-            <span class="concept-icon">🔢</span>
+            <span class="concept-icon"></span>
             <h3>Numerical Integration Method</h3>
             <p>This simulator uses <strong style="color:#a8c4f0">Euler integration</strong> at Δt = 0.005 s (200 steps/sec), recalculating velocity and position with updated drag every step. This gives accurate results even when drag changes with velocity.</p>
         </div>
@@ -919,7 +919,7 @@
     <span>Physics: numerical integration · drag · per-planet atmosphere</span>
 </footer>
 <script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
 <script src="/static/js/sim.js"></script>

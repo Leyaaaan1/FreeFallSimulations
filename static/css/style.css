@@ -30,7 +30,7 @@
     font-family: 'Syne', sans-serif;
     font-size: 14px;
     color: var(--txt);
-    background: var(--bg);
+    background: var(--bg3);
 }
 
 /* ── Scrollbar ──────────────────────────────────────────────────────────────── */
@@ -45,7 +45,7 @@ header {
     height: 60px;
     display: flex;
     align-items: center;
-    background: linear-gradient(90deg, #0a1020, #0d1830 60%, #0a1020);
+    background: var(--bg3);
     position: sticky; top: 0; z-index: 50;
     backdrop-filter: blur(10px);
 }
@@ -72,9 +72,9 @@ main {
     overflow-y: auto;
     padding: 18px;
 }
-.panel-controls { background: var(--bg2); }
-.panel-sim      { background: var(--bg);  display: flex; flex-direction: column; padding: 0; border-right: 1px solid var(--border); }
-.panel-results  { background: var(--bg2); border-right: none; }
+.panel-controls { background: var(--bg3); }
+.panel-sim      { background: var(--bg3);  display: flex; flex-direction: column; padding: 0; border-right: 1px solid var(--border); }
+.panel-results  { background: var(--bg3); border-right: none; }
 
 /* ── Control sections ───────────────────────────────────────────────────────── */
 .ctrl-section { margin-bottom: 22px; }
@@ -169,7 +169,7 @@ main {
 /* Run button */
 .run-btn {
     width: 100%; padding: 13px;
-    background: linear-gradient(135deg, var(--primary), var(--primary-d));
+    background: var(--primary);
     border: none; border-radius: var(--radius);
     color: #fff; font-family: 'Syne', sans-serif;
     font-size: 1rem; font-weight: 700; letter-spacing: .05em;
@@ -185,7 +185,7 @@ main {
 .sim-header {
     display: flex; align-items: center; justify-content: space-between;
     padding: 12px 18px; border-bottom: 1px solid var(--border);
-    background: var(--bg2);
+    background: var(--bg3);
 }
 .sim-title { font-size: .82rem; color: var(--txt2); font-family: 'Space Mono', monospace; }
 .sim-controls { display: flex; gap: 6px; }
@@ -199,7 +199,7 @@ main {
 
 .sim-stage {
     flex: 1; position: relative; overflow: hidden;
-    background: radial-gradient(ellipse at 50% 0%, #0d1f3c 0%, var(--bg) 70%);
+    background: var(--bg3);
 }
 .sim-placeholder {
     position: absolute; inset: 0;
@@ -221,9 +221,7 @@ main {
 }
 .planet-track {
     flex: 1; width: 2px; opacity: .25; margin: 4px 0;
-    background: repeating-linear-gradient(
-            to bottom, currentColor 0, currentColor 4px, transparent 4px, transparent 10px
-    );
+    background: currentColor;
 }
 .planet-ground {
     font-size: .58rem; padding-bottom: 4px; opacity: .6;
@@ -254,7 +252,7 @@ main {
 /* Ground line */
 .ground-line {
     position: absolute; left: 0; right: 0; height: 2px;
-    background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent);
+    background: var(--border);
 }
 .ground-label {
     position: absolute; right: 8px; font-size: .65rem;
@@ -263,7 +261,7 @@ main {
 
 .speed-legend {
     display: flex; gap: 16px; padding: 8px 18px;
-    border-top: 1px solid var(--border); background: var(--bg2);
+    border-top: 1px solid var(--border); background: var(--bg3);
     font-size: .72rem; color: var(--txt3);
 }
 .speed-legend span { display: flex; align-items: center; gap: 5px; }
@@ -336,7 +334,7 @@ main {
 }
 .progress-fill {
     height: 100%; border-radius: 2px;
-    background: linear-gradient(90deg, var(--primary), var(--accent));
+    background: var(--primary);
     transition: width .3s;
 }
 
@@ -344,7 +342,7 @@ main {
 footer {
     height: 36px; border-top: 1px solid var(--border);
     display: flex; align-items: center; justify-content: space-between;
-    padding: 0 24px; background: var(--bg2);
+    padding: 0 24px; background: var(--bg3);
     font-size: .7rem; color: var(--txt3);
 }
 footer a { color: var(--primary); text-decoration: none; }
