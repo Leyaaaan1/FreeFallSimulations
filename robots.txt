@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://freefall-lab.vercel.app/sitemap.xml
