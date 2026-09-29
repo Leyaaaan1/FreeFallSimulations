@@ -15,7 +15,6 @@ let paused        = false;
 let selectedIcon  = null;
 let currentSort   = "fall_time";
 let currentHeight = 100;
-let currentShape  = "circle";
 
 // ── DOM refs ──────────────────────────────────────────────────────────────────
 const massInput       = document.getElementById("mass-input");
@@ -47,15 +46,6 @@ document.querySelectorAll(".height-btn").forEach(btn => {
         document.querySelectorAll(".height-btn").forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
         currentHeight = parseInt(btn.dataset.h);
-    });
-});
-
-// ── Shape buttons ─────────────────────────────────────────────────────────────
-document.querySelectorAll(".shape-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-        document.querySelectorAll(".shape-btn").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        currentShape = btn.dataset.shape;
     });
 });
 
@@ -138,9 +128,8 @@ async function launchSim() {
 
     const body = {
         mass,
-        shape:  currentShape,
         height: currentHeight,
-        icon:   selectedIcon?.name || currentShape,
+        icon:   selectedIcon?.name || "circle",
     };
 
     try {
@@ -180,8 +169,9 @@ function showError(msg) {
     simStage.innerHTML = `
     <div class="sim-placeholder">
       <i class="fa-solid fa-triangle-exclamation" style="color:var(--danger)"></i>
-      <p style="color:var(--danger)">${msg}</p>
+      <p class="sim-error-msg" style="color:var(--danger)"></p>
     </div>`;
+    simStage.querySelector(".sim-error-msg").textContent = msg;
 }
 
 // ── Pause / Restart ───────────────────────────────────────────────────────────
@@ -389,7 +379,6 @@ function buildResults(results) {
         card.id        = `card-${r.planet}`;
         card.style.animationDelay = `${delay * 0.04}s`;
 
-        const vt      = r.v_terminal !== null ? `${r.v_terminal} m/s` : "∞ (no atm.)";
         const pctFill = ((r.fall_time / maxTime) * 100).toFixed(1);
         const color   = PLANET_COLORS[r.planet] || "#ffffff";
 
@@ -415,15 +404,7 @@ function buildResults(results) {
           <span class="metric-value"></span>
         </div>
         <div class="metric">
-          <span class="metric-label">Terminal v</span>
-          <span class="metric-value"></span>
-        </div>
-        <div class="metric">
           <span class="metric-label">Momentum</span>
-          <span class="metric-value"></span>
-        </div>
-        <div class="metric">
-          <span class="metric-label">Air Density</span>
           <span class="metric-value"></span>
         </div>
       </div>
@@ -441,9 +422,7 @@ function buildResults(results) {
         vals[0].textContent = `${r.fall_time.toFixed(2)} s`;
         vals[1].textContent = `${r.final_velocity.toFixed(1)} m/s`;
         vals[2].textContent = `${r.ke_impact.toFixed(0)} J`;
-        vals[3].textContent = vt;
-        vals[4].textContent = `${r.momentum.toFixed(1)} kg·m/s`;
-        vals[5].textContent = `${r.air_density} kg/m³`;
+        vals[3].textContent = `${r.momentum.toFixed(1)} kg·m/s`;
 
         resultsTable.appendChild(card);
     });

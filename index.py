@@ -5,16 +5,16 @@ Official entrypoint following Vercel's Python deployment guide
 
 import os
 import sys
-import math
 import re
 
 # Add root directory to path for imports
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request, send_from_directory
 from freefall_web.physics import (
-    PLANETARY_GRAVITY, SHAPE_PARAMS, AIR_DENSITY,
-    run_all_planets, terminal_velocity, impact_description,
+    PLANETARY_GRAVITY,
+    run_all_planets,
+    impact_description,
 )
 
 # Initialize Flask app
@@ -25,6 +25,7 @@ app = Flask(
     static_folder=os.path.join(root_dir, 'static'),
     static_url_path='/static'
 )
+
 
 # ── Security Headers ───────────────────────────────────────────────────────────
 @app.after_request
@@ -41,41 +42,45 @@ def add_security_headers(response):
 
     return response
 
+
 @app.route('/sitemap.xml')
 def sitemap():
     return send_from_directory('static', 'sitemap.xml')
+
 
 @app.route('/robots.txt')
 def robots():
     return send_from_directory('static', 'robots.txt')
 
+
 # ── FontAwesome free-solid icon catalogue ─────────────────────────────────────
 FA_ICONS = [
-    {"name": "circle",        "unicode": "f111", "tags": ["circle", "ball", "round", "sphere"]},
-    {"name": "square",        "unicode": "f0c8", "tags": ["square", "box", "cube", "block"]},
-    {"name": "rocket",        "unicode": "f135", "tags": ["rocket", "space", "launch", "missile"]},
-    {"name": "cube",          "unicode": "f1b2", "tags": ["cube", "3d", "box", "block"]},
-    {"name": "sphere",        "unicode": "f1a4", "tags": ["sphere", "ball", "round", "globe"]},
-    {"name": "coins",         "unicode": "f51e", "tags": ["money", "coins", "cash"]},
-    {"name": "feather",       "unicode": "f52d", "tags": ["feather", "light", "air", "float"]},
-    {"name": "meteor",        "unicode": "f753", "tags": ["meteor", "asteroid", "space", "impact"]},
-    {"name": "arrow-down",    "unicode": "f063", "tags": ["down", "arrow", "drop", "fall"]},
-    {"name": "arrow-up",      "unicode": "f062", "tags": ["up", "arrow", "rise"]},
-    {"name": "star",          "unicode": "f005", "tags": ["star", "favorite", "rating"]},
-    {"name": "heart",         "unicode": "f004", "tags": ["heart", "love", "favorite"]},
-    {"name": "flask",         "unicode": "f0c3", "tags": ["chemistry", "science", "experiment", "physics"]},
-    {"name": "microscope",    "unicode": "f578", "tags": ["science", "research", "biology"]},
-    {"name": "graduation-cap","unicode": "f19d", "tags": ["education", "learning", "study"]},
-    {"name": "book",          "unicode": "f02d", "tags": ["book", "read", "knowledge"]},
+    {"name": "circle",         "unicode": "f111", "tags": ["circle", "ball", "round", "sphere"]},
+    {"name": "square",         "unicode": "f0c8", "tags": ["square", "box", "cube", "block"]},
+    {"name": "rocket",         "unicode": "f135", "tags": ["rocket", "space", "launch", "missile"]},
+    {"name": "cube",           "unicode": "f1b2", "tags": ["cube", "3d", "box", "block"]},
+    {"name": "sphere",         "unicode": "f1a4", "tags": ["sphere", "ball", "round", "globe"]},
+    {"name": "coins",          "unicode": "f51e", "tags": ["money", "coins", "cash"]},
+    {"name": "feather",        "unicode": "f52d", "tags": ["feather", "light", "air", "float"]},
+    {"name": "meteor",         "unicode": "f753", "tags": ["meteor", "asteroid", "space", "impact"]},
+    {"name": "arrow-down",     "unicode": "f063", "tags": ["down", "arrow", "drop", "fall"]},
+    {"name": "arrow-up",       "unicode": "f062", "tags": ["up", "arrow", "rise"]},
+    {"name": "star",           "unicode": "f005", "tags": ["star", "favorite", "rating"]},
+    {"name": "heart",          "unicode": "f004", "tags": ["heart", "love", "favorite"]},
+    {"name": "flask",          "unicode": "f0c3", "tags": ["chemistry", "science", "experiment", "physics"]},
+    {"name": "microscope",     "unicode": "f578", "tags": ["science", "research", "biology"]},
+    {"name": "graduation-cap", "unicode": "f19d", "tags": ["education", "learning", "study"]},
+    {"name": "book",           "unicode": "f02d", "tags": ["book", "read", "knowledge"]},
 ]
 
-VALID_ICONS = {icon["name"] for icon in FA_ICONS} | set(SHAPE_PARAMS.keys())
+VALID_ICONS = {icon["name"] for icon in FA_ICONS}
 
+
+# ── Routes ─────────────────────────────────────────────────────────────────────
 @app.route("/")
 def index():
-    return render_template("index.html",
-                           planets=list(PLANETARY_GRAVITY.keys()),
-                           shapes=list(SHAPE_PARAMS.keys()))
+    return render_template("index.html", planets=list(PLANETARY_GRAVITY.keys()))
+
 
 @app.route("/api/icons")
 def search_icons():
@@ -93,12 +98,13 @@ def search_icons():
             if q in icon["name"] or any(q in tag for tag in icon["tags"])
         ]
         return jsonify(results[:50])
-    except Exception as e:
+    except Exception:
         return jsonify([]), 500
+
 
 @app.route("/api/simulate", methods=["POST"])
 def simulate():
-    """Run physics simulation with full input validation."""
+    """Run gravity-only free-fall simulation with input validation."""
     try:
         if not request.is_json:
             return jsonify({"error": "Content-Type must be application/json"}), 415
@@ -116,52 +122,40 @@ def simulate():
         if mass_kg < 0.001 or mass_kg > 10000:
             return jsonify({"error": "Mass must be between 0.001 and 10000 kg"}), 400
 
-        # Validate shape
-        shape = data.get("shape", "circle")
-        if shape not in SHAPE_PARAMS:
-            return jsonify({
-                "error": f"Invalid shape. Allowed: {list(SHAPE_PARAMS.keys())}"
-            }), 400
-
         # Validate height
         try:
             height = float(data.get("height", 100.0))
         except (ValueError, TypeError):
             return jsonify({"error": "Invalid height: must be a number"}), 400
 
-        if height <= 0 or height > 100000:
+        if height < 0.1 or height > 100000:
             return jsonify({"error": "Height must be between 0.1 and 100000 meters"}), 400
 
-        # Validate icon
-        icon_name = data.get("icon", shape)
+        # Validate icon (cosmetic only)
+        icon_name = data.get("icon", "circle")
         if icon_name not in VALID_ICONS:
-            icon_name = shape
+            icon_name = "circle"
 
-        # Run simulation
-        results = run_all_planets(mass_kg, shape, height)
+        # Run simulation (series are already sized in physics.py)
+        results = run_all_planets(mass_kg, height)
 
-        # Build response payload
         payload = []
         for planet, r in results.items():
-            vt = r["v_terminal"]
             payload.append({
-                "planet":          planet,
-                "gravity":         PLANETARY_GRAVITY[planet],
-                "air_density":     AIR_DENSITY[planet],
-                "fall_time":       round(r["fall_time"], 3),
-                "final_velocity":  round(r["final_velocity"], 2),
-                "ke_impact":       round(r["ke_impact"], 1),
-                "momentum":        round(r["momentum"], 2),
-                "v_terminal":      round(vt, 1) if vt != math.inf else None,
-                "impact_desc":     impact_description(r["ke_impact"]),
-                "t_series":        r["t_series"][::10] + [r["t_series"][-1]],
-                "y_series":        r["y_series"][::10] + [r["y_series"][-1]],
-                "v_series":        r["v_series"][::10] + [r["v_series"][-1]],
+                "planet":         planet,
+                "gravity":        PLANETARY_GRAVITY[planet],
+                "fall_time":      round(r["fall_time"], 3),
+                "final_velocity": round(r["final_velocity"], 2),
+                "ke_impact":      round(r["ke_impact"], 1),
+                "momentum":       round(r["momentum"], 2),
+                "impact_desc":    impact_description(r["ke_impact"]),
+                "t_series":       r["t_series"],
+                "y_series":       r["y_series"],
+                "v_series":       r["v_series"],
             })
 
         return jsonify({
             "mass":    mass_kg,
-            "shape":   shape,
             "height":  height,
             "icon":    icon_name,
             "results": payload,
@@ -170,8 +164,9 @@ def simulate():
     except ValueError as e:
         return jsonify({"error": str(e)}), 400
 
-    except Exception as e:
+    except Exception:
         return jsonify({"error": "Simulation failed. Please try again."}), 500
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))

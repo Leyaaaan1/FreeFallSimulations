@@ -7,9 +7,9 @@
     <!-- ══ PRIMARY SEO META ══════════════════════════════════════════════════ -->
     <title>Free Fall Simulator – Drop Objects on Every Planet | FreeFallLab</title>
     <meta name="description"
-          content="Interactive free-fall physics simulator for all 9 planets. Calculate fall time, impact velocity, terminal velocity & kinetic energy. Perfect for students, teachers & physics lovers." />
+          content="Interactive free-fall physics simulator for all 9 planetary bodies. Calculate fall time, impact velocity, kinetic energy & momentum using real surface gravity. Perfect for students, teachers & physics lovers." />
     <meta name="keywords"
-          content="free fall simulator, free fall calculator, free fall formula, free fall physics, gravity calculator, planetary gravity, fall time calculator, terminal velocity calculator, physics simulation, science education, free fall equation, acceleration due to gravity, drop height calculator" />
+          content="free fall simulator, free fall calculator, free fall formula, free fall physics, gravity calculator, planetary gravity, fall time calculator, impact velocity calculator, physics simulation, science education, free fall equation, acceleration due to gravity, drop height calculator" />
     <meta name="author" content="FreeFallLab" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://freefall-lab.vercel.app/" />
@@ -17,7 +17,7 @@
     <!-- ══ OPEN GRAPH (Facebook / LinkedIn) ══════════════════════════════════ -->
     <meta property="og:type"        content="website" />
     <meta property="og:title"       content="Free Fall Simulator – Drop Objects on Every Planet" />
-    <meta property="og:description" content="Simulate free fall with real physics across Mercury, Venus, Earth, Mars, Jupiter & more. Includes drag, atmosphere, terminal velocity & kinetic energy." />
+    <meta property="og:description" content="Simulate ideal free fall across Mercury, Venus, Earth, Mars, Jupiter & more using each planet's real surface gravity. Includes fall time, impact velocity, kinetic energy & momentum." />
     <meta property="og:url"         content="https://freefall-lab.vercel.app/" />
     <meta property="og:site_name"   content="FreeFallLab" />
     <meta property="og:image"       content="https://freefall-lab.vercel.app/static/og-image.png" />
@@ -25,7 +25,7 @@
     <!-- ══ TWITTER CARD ══════════════════════════════════════════════════════ -->
     <meta name="twitter:card"        content="summary_large_image" />
     <meta name="twitter:title"       content="Free Fall Simulator – Every Planet, Real Physics" />
-    <meta name="twitter:description" content="Calculate free-fall time, velocity & kinetic energy across all planets. Built for physics students & curious minds." />
+    <meta name="twitter:description" content="Calculate free-fall time, velocity & kinetic energy across all planets using real gravity. Built for physics students & curious minds." />
     <meta name="twitter:image"       content="https://freefall-lab.vercel.app/static/og-image.png" />
 
     <!-- ══ STRUCTURED DATA – FAQ (targets Google rich results) ══════════════ -->
@@ -39,7 +39,7 @@
                     "name": "What is the free fall formula?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "The free fall formula is: distance = ½ × g × t², where g is gravitational acceleration (9.81 m/s² on Earth) and t is time in seconds. For velocity: v = g × t. This assumes no air resistance."
+                        "text": "The free fall formula is: distance = ½ × g × t², where g is gravitational acceleration (9.81 m/s² on Earth) and t is time in seconds. For velocity: v = g × t. This simulator assumes no air resistance."
                     }
                 },
                 {
@@ -47,15 +47,15 @@
                     "name": "How long does it take an object to fall 100 meters on Earth?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "On Earth (g = 9.81 m/s²), an object falls 100 m in approximately 4.52 seconds in a vacuum. With air drag the fall time increases depending on object shape and mass."
+                        "text": "On Earth (g = 9.81 m/s²), an object falls 100 m in approximately 4.52 seconds when air resistance is ignored, as in this simulator."
                     }
                 },
                 {
                     "@type": "Question",
-                    "name": "What is terminal velocity?",
+                    "name": "Does this simulator include air resistance?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Terminal velocity is the constant speed reached when gravitational force equals air drag force. Formula: v_t = √(2mg / ρCdA), where m=mass, g=gravity, ρ=air density, Cd=drag coefficient, A=cross-sectional area."
+                        "text": "No. It models ideal free fall under constant surface gravity, ignoring atmospheres and drag, because atmospheric density changes with altitude and is not constant. Fall time is t = √(2h / g) and impact velocity is v = √(2gh)."
                     }
                 },
                 {
@@ -63,7 +63,7 @@
                     "name": "Does mass affect free fall time?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "In a vacuum, mass does NOT affect free fall time — all objects fall at the same rate (Galileo's experiment). However, with air resistance, heavier objects with the same shape fall faster because drag is proportionally smaller relative to gravitational force."
+                        "text": "No. Without air resistance, mass does not affect fall time or impact velocity — all objects fall at the same rate. Mass only changes kinetic energy (KE = ½mv²) and momentum (p = mv) at impact."
                     }
                 },
                 {
@@ -71,7 +71,7 @@
                     "name": "On which planet do objects fall the fastest?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Jupiter has the highest surface gravity at 24.79 m/s², so objects accelerate fastest there. However, Jupiter's dense atmosphere creates significant drag, limiting terminal velocity."
+                        "text": "Jupiter has the highest surface gravity at 24.79 m/s², so objects accelerate fastest there. Pluto has the lowest at 0.62 m/s², so objects fall about 40 times slower there."
                     }
                 },
                 {
@@ -79,7 +79,7 @@
                     "name": "What is the free fall formula on Mars?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "On Mars, gravity is 3.71 m/s². The fall distance formula is: d = ½ × 3.71 × t². To fall 100 m takes about 7.34 seconds (in vacuum). Mars has a thin atmosphere (0.020 kg/m³) so drag effects are minimal."
+                        "text": "On Mars, gravity is 3.71 m/s². The fall distance formula is: d = ½ × 3.71 × t². To fall 100 m takes about 7.34 seconds when air resistance is ignored."
                     }
                 }
             ]
@@ -93,7 +93,7 @@
             "@type": "WebApplication",
             "name": "FreeFallLab – Planetary Free-Fall Simulator",
             "url": "https://freefall-lab.vercel.app/",
-            "description": "Simulate free-fall physics across all 9 planets with real gravity, atmosphere and drag calculations.",
+            "description": "Simulate ideal free-fall physics across all 9 planetary bodies using real surface gravity.",
             "applicationCategory": "EducationalApplication",
             "operatingSystem": "Web",
             "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
@@ -421,14 +421,14 @@
 <div class="seo-hero" aria-label="Quick reference for physics students">
     <span class="seo-hero__badge"><i class="fa-solid fa-atom"></i> Physics Simulator</span>
     <p class="seo-hero__text">
-        <strong>Free-fall calculator</strong> for all 9 planets —
-        compute <strong>fall time</strong>, <strong>terminal velocity</strong> &
-        <strong>kinetic energy</strong> with real drag &amp; atmosphere models.
+        <strong>Free-fall calculator</strong> for all 9 planetary bodies —
+        compute <strong>fall time</strong>, <strong>impact velocity</strong> &
+        <strong>kinetic energy</strong> using each planet's real surface gravity.
     </p>
     <div class="seo-hero__pills">
         <span class="seo-pill">d = ½gt²</span>
         <span class="seo-pill">v = gt</span>
-        <span class="seo-pill">v_t = √(2mg/ρCdA)</span>
+        <span class="seo-pill">t = √(2h/g)</span>
         <span class="seo-pill">KE = ½mv²</span>
     </div>
 </div>
@@ -470,22 +470,6 @@
             </div>
         </section>
 
-        <section class="ctrl-section">
-            <label class="ctrl-label">
-                <i class="fa-solid fa-wind"></i> Drag Profile
-            </label>
-            <div class="shape-btns">
-                <button class="shape-btn active" data-shape="circle">
-                    <i class="fa-solid fa-circle"></i> Circle <em>Cd 0.47</em>
-                </button>
-                <button class="shape-btn" data-shape="square">
-                    <i class="fa-solid fa-square"></i> Square <em>Cd 1.05</em>
-                </button>
-                <button class="shape-btn" data-shape="rocket">
-                    <i class="fa-solid fa-rocket"></i> Rocket <em>Cd 0.08</em>
-                </button>
-            </div>
-        </section>
 
         <!-- Icon picker -->
         <section class="ctrl-section">
@@ -560,7 +544,6 @@
 
 </main>
 
-<!-- ─�� Footer ────────────────────────────────────────────────────────────────── -->
 <!-- ══ SEO CONTENT BLOCK ═════════════════════════════════════════════════════ -->
 <section class="seo-content" aria-label="Physics reference and educational content">
 
@@ -574,9 +557,9 @@
 
         <!-- Core equations card -->
         <div class="seo-card">
-            <h2>Core Free Fall Equations (No Air Resistance)</h2>
+            <h2>Core Free Fall Equations (Ideal, No Air Resistance)</h2>
             <p style="font-size:.82rem;color:#6b7a9a;line-height:1.6;margin-bottom:12px">
-                In a vacuum, all objects fall identically regardless of mass. These are the fundamental kinematic equations every physics student needs.
+                With no air resistance, all objects fall identically regardless of mass. These are the exact kinematic equations this simulator uses.
             </p>
             <div class="formula-box">
                 <span class="var">d</span> = ½ × <span class="var">g</span> × <span class="var">t</span>²
@@ -596,24 +579,24 @@
             </p>
         </div>
 
-        <!-- With drag card -->
+        <!-- Energy card -->
         <div class="seo-card">
-            <h2>With Air Resistance (Drag Equation)</h2>
+            <h2>Impact Energy &amp; Momentum</h2>
             <p style="font-size:.82rem;color:#6b7a9a;line-height:1.6;margin-bottom:12px">
-                Real-world free fall includes atmospheric drag. This simulator uses numerical integration to solve these equations each 0.005s time-step.
+                Mass does not change how fast an object falls, but it does change how hard it hits. These values are computed from the exact impact velocity.
             </p>
             <div class="formula-box">
-                <span class="var">F</span><sub>net</sub> = <span class="var">mg</span> − ½<span class="var">ρ</span><span class="var">Cd</span><span class="var">A</span><span class="var">v</span>²<br/>
-                <span class="var">a</span> = <span class="var">F</span><sub>net</sub> / <span class="var">m</span><br/>
-                <span class="var">v</span><sub>t</sub> = √(2<span class="var">mg</span> / <span class="var">ρCdA</span>)
-                <span style="color:#6b7a9a;font-size:.75rem"> &nbsp;← terminal velocity</span><br/>
-                <span class="var">KE</span> = ½<span class="var">mv</span>²
-                <span style="color:#6b7a9a;font-size:.75rem"> &nbsp;← kinetic energy (J)</span>
+                <span class="var">v</span> = √(2 <span class="var">g</span> <span class="var">h</span>)
+                <span style="color:#6b7a9a;font-size:.75rem"> &nbsp;← impact velocity (m/s)</span><br/>
+                <span class="var">KE</span> = ½<span class="var">mv</span>² = <span class="var">mgh</span>
+                <span style="color:#6b7a9a;font-size:.75rem"> &nbsp;← kinetic energy (J)</span><br/>
+                <span class="var">p</span> = <span class="var">m</span> × <span class="var">v</span>
+                <span style="color:#6b7a9a;font-size:.75rem"> &nbsp;← momentum (kg·m/s)</span>
             </div>
             <p style="font-size:.75rem;color:#6b7a9a;margin:0">
-                <strong style="color:#a8c4f0">ρ</strong> = air density &nbsp;·&nbsp;
-                <strong style="color:#a8c4f0">Cd</strong> = drag coefficient &nbsp;·&nbsp;
-                <strong style="color:#a8c4f0">A</strong> = cross-section area
+                <strong style="color:#a8c4f0">m</strong> = mass (kg) &nbsp;·&nbsp;
+                <strong style="color:#a8c4f0">h</strong> = drop height (m) &nbsp;·&nbsp;
+                <strong style="color:#a8c4f0">p</strong> = momentum
             </p>
         </div>
 
@@ -627,17 +610,16 @@
 
     <div class="seo-card" style="max-width:1300px;margin:0 auto 48px;overflow-x:auto">
         <p style="font-size:.82rem;color:#6b7a9a;margin:0 0 18px;line-height:1.6">
-            Using <code style="background:rgba(100,149,237,.12);padding:2px 6px;border-radius:4px;font-family:'Space Mono',monospace;font-size:.75rem;color:#6495ed">t = √(2h / g)</code> for vacuum fall time and
-            <code style="background:rgba(100,149,237,.12);padding:2px 6px;border-radius:4px;font-family:'Space Mono',monospace;font-size:.75rem;color:#6495ed">v = g × t</code> for impact velocity. Drop height h = 100 m.
+            Using <code style="background:rgba(100,149,237,.12);padding:2px 6px;border-radius:4px;font-family:'Space Mono',monospace;font-size:.75rem;color:#6495ed">t = √(2h / g)</code> for fall time and
+            <code style="background:rgba(100,149,237,.12);padding:2px 6px;border-radius:4px;font-family:'Space Mono',monospace;font-size:.75rem;color:#6495ed">v = g × t</code> for impact velocity. Drop height h = 100 m, no air resistance.
         </p>
         <table class="planet-table" aria-label="Free fall data for all planets">
             <thead>
             <tr>
                 <th>Planet</th>
                 <th>Gravity g (m/s²)</th>
-                <th>Atmosphere (kg/m³)</th>
-                <th>Fall Time 100 m (vacuum)</th>
-                <th>Impact Velocity (vacuum)</th>
+                <th>Fall Time (100 m)</th>
+                <th>Impact Velocity</th>
                 <th>Formula: t = √(200/g)</th>
             </tr>
             </thead>
@@ -645,7 +627,6 @@
             <tr>
                 <td><span class="planet-emoji">☿</span> Mercury</td>
                 <td><span class="g-badge">3.70 m/s²</span></td>
-                <td>0.000 — none</td>
                 <td>7.35 s</td>
                 <td>27.2 m/s</td>
                 <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#a8c4f0">√(200/3.70)</td>
@@ -653,7 +634,6 @@
             <tr>
                 <td><span class="planet-emoji">♀</span> Venus</td>
                 <td><span class="g-badge">8.87 m/s²</span></td>
-                <td>65.00 — very dense CO₂</td>
                 <td>4.75 s</td>
                 <td>42.1 m/s</td>
                 <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#a8c4f0">√(200/8.87)</td>
@@ -661,7 +641,6 @@
             <tr class="highlight-earth">
                 <td><span class="planet-emoji">🌍</span> <strong>Earth</strong></td>
                 <td><span class="g-badge">9.81 m/s²</span></td>
-                <td>1.225 — standard</td>
                 <td><strong>4.52 s</strong></td>
                 <td><strong>44.3 m/s</strong></td>
                 <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#a8c4f0">√(200/9.81)</td>
@@ -669,7 +648,6 @@
             <tr>
                 <td><span class="planet-emoji">♂</span> Mars</td>
                 <td><span class="g-badge">3.71 m/s²</span></td>
-                <td>0.020 — thin CO₂</td>
                 <td>7.34 s</td>
                 <td>27.2 m/s</td>
                 <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#a8c4f0">√(200/3.71)</td>
@@ -677,7 +655,6 @@
             <tr>
                 <td><span class="planet-emoji">♃</span> Jupiter</td>
                 <td><span class="g-badge">24.79 m/s²</span></td>
-                <td>1.330 — H₂/He</td>
                 <td>2.84 s</td>
                 <td>70.4 m/s</td>
                 <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#a8c4f0">√(200/24.79)</td>
@@ -685,7 +662,6 @@
             <tr>
                 <td><span class="planet-emoji">♄</span> Saturn</td>
                 <td><span class="g-badge">10.44 m/s²</span></td>
-                <td>0.190 — H₂/He</td>
                 <td>4.38 s</td>
                 <td>45.7 m/s</td>
                 <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#a8c4f0">√(200/10.44)</td>
@@ -693,7 +669,6 @@
             <tr>
                 <td><span class="planet-emoji">⛢</span> Uranus</td>
                 <td><span class="g-badge">8.69 m/s²</span></td>
-                <td>0.420 — ice giant</td>
                 <td>4.80 s</td>
                 <td>41.7 m/s</td>
                 <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#a8c4f0">√(200/8.69)</td>
@@ -701,15 +676,13 @@
             <tr>
                 <td><span class="planet-emoji">♆</span> Neptune</td>
                 <td><span class="g-badge">11.15 m/s²</span></td>
-                <td>0.450 — wind giant</td>
-                <td>4.23 s</td>
+                <td>4.24 s</td>
                 <td>47.2 m/s</td>
                 <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#a8c4f0">√(200/11.15)</td>
             </tr>
             <tr>
                 <td><span class="planet-emoji">♇</span> Pluto</td>
                 <td><span class="g-badge">0.62 m/s²</span></td>
-                <td>0.000 — trace only</td>
                 <td>17.96 s</td>
                 <td>11.1 m/s</td>
                 <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#a8c4f0">√(200/0.62)</td>
@@ -717,7 +690,7 @@
             </tbody>
         </table>
         <p style="font-size:.72rem;color:#6b7a9a;margin:14px 0 0;font-family:'Space Mono',monospace">
-            Actual fall times will be longer on planets with thick atmospheres (Venus especially). Run the simulator above for drag-corrected values.
+            Ideal free fall: constant surface gravity, no atmosphere. Run the simulator above to try other masses and heights.
         </p>
     </div>
 
@@ -732,37 +705,37 @@
         <div class="concept-card">
             <span class="concept-icon"></span>
             <h3>What is Free Fall?</h3>
-            <p>Free fall is motion under gravity alone with no other forces. In a vacuum, every object — a feather or a bowling ball — falls at <strong style="color:#a8c4f0">identical acceleration</strong>. Galileo proved this at the Tower of Pisa around 1589.</p>
+            <p>Free fall is motion under gravity alone with no other forces. Without air resistance, every object — a feather or a bowling ball — falls with <strong style="color:#a8c4f0">identical acceleration</strong>. Astronaut David Scott demonstrated this on the Moon in 1971 by dropping a hammer and a feather together.</p>
         </div>
 
         <div class="concept-card">
             <span class="concept-icon"></span>
-            <h3>What is Terminal Velocity?</h3>
-            <p>When drag force equals gravitational force, net acceleration reaches zero and the object falls at <strong style="color:#a8c4f0">constant speed</strong>. A human skydiver reaches ~53 m/s (190 km/h) in a belly-to-earth position. A raindrop reaches ~9 m/s.</p>
+            <h3>Why Ignore Air Resistance?</h3>
+            <p>Air density changes with altitude, so a single constant value is not accurate for tall drops. This simulator uses <strong style="color:#a8c4f0">ideal free fall</strong> so every result follows exact equations that you can check by hand.</p>
         </div>
 
         <div class="concept-card">
             <span class="concept-icon"></span>
             <h3>Does Mass Affect Free Fall?</h3>
-            <p>In a <strong style="color:#a8c4f0">vacuum: no</strong> — Galileo's equivalence principle. With air resistance: <strong style="color:#a8c4f0">yes</strong> — heavier objects reach higher terminal velocities because drag is proportionally smaller relative to gravitational force.</p>
+            <p><strong style="color:#a8c4f0">No.</strong> Fall time and impact velocity depend only on gravity and height. Mass changes only the <strong style="color:#a8c4f0">kinetic energy</strong> and <strong style="color:#a8c4f0">momentum</strong> at impact, so a heavier object hits harder but does not land sooner.</p>
         </div>
 
         <div class="concept-card">
             <span class="concept-icon"></span>
             <h3>Kinetic Energy at Impact</h3>
-            <p>KE = ½mv² tells you the energy transferred at impact. A 1 kg ball dropped 100 m on Earth hits with ~981 J — equivalent to a small explosion. On Jupiter the same drop produces ~2,479 J due to stronger gravity.</p>
+            <p>KE = ½mv² tells you the energy transferred at impact. A 1 kg object dropped 100 m on Earth hits with about 981 J. On Jupiter the same drop produces about 2,479 J because of the stronger gravity.</p>
         </div>
 
         <div class="concept-card">
             <span class="concept-icon"></span>
             <h3>Why Jupiter Falls Fastest</h3>
-            <p>Jupiter's surface gravity of 24.79 m/s² is 2.53× Earth's. Objects accelerate over 2.5× faster, reaching <strong style="color:#a8c4f0">70+ m/s</strong> after just 100 m in vacuum — but Jupiter's atmosphere limits real velocities significantly.</p>
+            <p>Jupiter's reference-level gravity of 24.79 m/s² is 2.53× Earth's. An object reaches <strong style="color:#a8c4f0">70+ m/s</strong> after a 100 m drop, while on Pluto (0.62 m/s²) it reaches only about 11 m/s.</p>
         </div>
 
         <div class="concept-card">
             <span class="concept-icon"></span>
-            <h3>Numerical Integration Method</h3>
-            <p>This simulator uses <strong style="color:#a8c4f0">Euler integration</strong> at Δt = 0.005 s (200 steps/sec), recalculating velocity and position with updated drag every step. This gives accurate results even when drag changes with velocity.</p>
+            <h3>Exact Equations</h3>
+            <p>This simulator uses the <strong style="color:#a8c4f0">closed-form equations</strong> y = h − ½gt² and v = gt, not step-by-step approximation, so fall time and impact velocity are exact for constant gravity.</p>
         </div>
 
     </div>
@@ -799,10 +772,10 @@
             <li class="faq-item">
                 <button class="faq-q" onclick="toggleFaq(this)">
                     <i class="fa-solid fa-chevron-right"></i>
-                    How does drag coefficient (Cd) affect free fall?
+                    Does this simulator include air resistance?
                 </button>
                 <div class="faq-a">
-                    A higher Cd means more drag. A sphere has Cd ≈ 0.47, a flat plate ~1.05, a streamlined rocket as low as 0.08. The drag force is <code>F_drag = ½ρCdAv²</code>. Lower Cd → less drag → object reaches higher terminal velocity and hits harder.
+                    No. It models ideal free fall under constant surface gravity. Atmospheric density changes with altitude, so a constant-density drag model would not be reliable for tall drops. Ignoring air keeps every result exact and easy to verify.
                 </div>
             </li>
 
@@ -819,10 +792,10 @@
             <li class="faq-item">
                 <button class="faq-q" onclick="toggleFaq(this)">
                     <i class="fa-solid fa-chevron-right"></i>
-                    Why does Venus have such a high atmospheric density?
+                    Why do all objects have the same fall time?
                 </button>
                 <div class="faq-a">
-                    Venus's atmosphere is 96% CO₂ at ~92× Earth's surface pressure. This produces an air density of ~65 kg/m³ at the surface (vs 1.225 on Earth). This creates enormous drag — objects reach terminal velocity extremely quickly on Venus, making fall times much longer than gravity alone would suggest.
+                    Without air resistance, the only force is gravity, and the acceleration is <code>g</code> regardless of mass. Fall time <code>t = √(2h / g)</code> has no mass term. Heavier objects only hit with more kinetic energy and momentum.
                 </div>
             </li>
 
@@ -839,10 +812,10 @@
             <li class="faq-item">
                 <button class="faq-q" onclick="toggleFaq(this)">
                     <i class="fa-solid fa-chevron-right"></i>
-                    How does this simulator handle planets with no atmosphere?
+                    What does "impact" mean on gas giants?
                 </button>
                 <div class="faq-a">
-                    Mercury and Pluto have zero atmospheric density in this model, so the drag term is 0. Objects fall in pure free fall — terminal velocity is <strong>infinite</strong> (it's never reached). The equations reduce to the simple vacuum formulas.
+                    Jupiter, Saturn, Uranus and Neptune have no solid surface. The simulator uses each planet's reference-level gravity, so "impact" means reaching the reference level (about 1 bar pressure) below the drop point.
                 </div>
             </li>
 
@@ -852,7 +825,7 @@
                     Can I use this for a physics class or homework?
                 </button>
                 <div class="faq-a">
-                    Absolutely! The simulator uses real planetary data and physically accurate drag models. The results table shows fall time, impact velocity, kinetic energy, momentum, and terminal velocity — all values you'd calculate by hand using the formulas shown above. Use it to verify your calculations or explore what-if scenarios.
+                    Yes. The results table shows fall time, impact velocity, kinetic energy and momentum, all of which you can calculate by hand with the formulas above, so it is a good way to check your work. The model assumes constant gravity and no air resistance, so it is not suited to very tall drops or orbital mechanics.
                 </div>
             </li>
 
@@ -866,14 +839,12 @@
         <p style="font-size:.75rem;color:#6b7a9a;margin:0 0 10px;font-family:'Space Mono',monospace">Explore topics:</p>
         <div class="topic-chips">
             <span class="topic-chip">free fall formula</span>
-            <span class="topic-chip">terminal velocity calculator</span>
+            <span class="topic-chip">impact velocity calculator</span>
             <span class="topic-chip">gravity on Mars</span>
             <span class="topic-chip">Jupiter gravity m/s²</span>
             <span class="topic-chip">kinetic energy impact</span>
-            <span class="topic-chip">free fall with air resistance</span>
             <span class="topic-chip">drop height calculator</span>
             <span class="topic-chip">Galileo free fall experiment</span>
-            <span class="topic-chip">drag coefficient physics</span>
             <span class="topic-chip">planetary gravity comparison</span>
             <span class="topic-chip">free fall acceleration</span>
             <span class="topic-chip">physics simulation online</span>
@@ -908,7 +879,7 @@
 
     <!-- Footnote -->
     <p class="seo-footnote">
-        FreeFallLab uses real gravitational and atmospheric data from NASA planetary fact sheets. Physics engine: Python numerical integration (Euler method, Δt = 0.005 s). All drag calculations use cross-sectional area proportional to mass^(2/3). Results are accurate for uniform gravitational fields near planetary surfaces. Not suitable for orbital mechanics or extreme-altitude calculations.
+        FreeFallLab uses planetary surface gravity values from NASA planetary fact sheets. Physics model: ideal free fall from rest with constant gravity and no air resistance, solved with exact closed-form equations (t = √(2h/g), v = gt). Gas giants use reference-level (1 bar) gravity. Not suitable for orbital mechanics or extreme-altitude calculations.
     </p>
 
 </section>
@@ -916,7 +887,7 @@
 <!-- ══ Footer ════════════════════════════════════════════════════════════════ -->
 <footer>
     <span>Icons via <a href="https://fontawesome.com" target="_blank">FontAwesome 6 Free</a> CDN</span>
-    <span>Physics: numerical integration · drag · per-planet atmosphere</span>
+    <span>Physics: exact free-fall equations · real planetary gravity</span>
 </footer>
 <script>
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };

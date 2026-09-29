@@ -2,13 +2,27 @@
 physics.py
 ──────────
 Pure-Python physics engine for the free-fall simulator.
-No pygame dependency — safe to import anywhere (tests, notebooks, etc.)
+
+Model: ideal free fall under constant surface gravity.
+    - No air resistance (no atmosphere modeled)
+    - Constant gravity (no change with altitude)
+    - Object starts at rest
+
+Because the motion is exact, closed-form equations are used:
+    y(t)      = h - 1/2 g t^2
+    v(t)      = g t
+    fall time = sqrt(2h / g)
+    impact v  = sqrt(2 g h)
+
+Mass does not affect fall time or impact velocity in this model
+(it only affects kinetic energy and momentum).
 """
 
 import math
 
 # ── Planetary data ─────────────────────────────────────────────────────────────
-PLANETARY_GRAVITY: dict[str, float] = {  # surface gravity  m/s²
+# Surface gravity in m/s²
+PLANETARY_GRAVITY: dict[str, float] = {
     "Mercury": 3.70,
     "Venus":   8.87,
     "Earth":   9.81,
@@ -20,132 +34,70 @@ PLANETARY_GRAVITY: dict[str, float] = {  # surface gravity  m/s²
     "Pluto":   0.62,
 }
 
-# Surface atmospheric density kg/m³  (approximate)
-AIR_DENSITY: dict[str, float] = {
-    "Mercury": 0.000,
-    "Venus":   65.00,   # super-dense CO₂ atmosphere
-    "Earth":   1.225,
-    "Mars":    0.020,
-    "Jupiter": 1.330,
-    "Saturn":  0.190,
-    "Uranus":  0.420,
-    "Neptune": 0.450,
-    "Pluto":   0.000,
-}
-
-# ── Shape aerodynamic properties ───────────────────────────────────────────────
-# Cd  = drag coefficient
-# A_k = area scaling constant  →  A_ref = A_k * mass^(2/3)
-#        (heavier/bigger objects have a proportionally larger cross-section)
-SHAPE_PARAMS: dict[str, dict] = {
-    "circle": {"Cd": 0.47,  "A_k": 0.010, "label": "⬤  Circle"},
-    "square": {"Cd": 1.05,  "A_k": 0.012, "label": "■  Square"},
-    "rocket": {"Cd": 0.075, "A_k": 0.005, "label": "🚀 Rocket"},
-}
-
-SHAPES = list(SHAPE_PARAMS.keys())
+# Minimum spacing between returned data points (seconds) and the
+# maximum number of points per planet (keeps responses small for tall drops).
+MIN_STEP = 0.05
+MAX_POINTS = 1000
 
 
-# ── Physics helpers ────────────────────────────────────────────────────────────
-
-def reference_area(mass_kg: float, shape: str) -> float:
-    """Cross-sectional reference area in m², scaled by mass."""
-    return SHAPE_PARAMS[shape]["A_k"] * (mass_kg ** (2 / 3))
-
-
-def terminal_velocity(mass_kg: float, shape: str, planet: str) -> float:
+def simulate_fall(planet: str, mass_kg: float, height: float = 100.0) -> dict:
     """
-    Terminal velocity in m/s.
-    Returns math.inf when there is no atmosphere (drag-free).
-
-        v_t = sqrt( 2 m g / (Cd ρ A) )
-    """
-    rho = AIR_DENSITY[planet]
-    if rho == 0.0:
-        return math.inf
-    g  = PLANETARY_GRAVITY[planet]
-    Cd = SHAPE_PARAMS[shape]["Cd"]
-    A  = reference_area(mass_kg, shape)
-    return math.sqrt(2 * mass_kg * g / (Cd * rho * A))
-
-
-def simulate_fall(
-        planet:   str,
-        mass_kg:  float,
-        shape:    str,
-        height:   float = 100.0,
-        dt:       float = 0.005,
-) -> dict:
-    """
-    Numerically integrate the equation of motion with aerodynamic drag.
-
-        F_net = m·g  −  ½·ρ·Cd·A·v²      (drag opposes motion)
-        a     = F_net / m
+    Compute an ideal free fall (no air resistance) on the given planet.
 
     Parameters
     ----------
     planet   : one of PLANETARY_GRAVITY keys
     mass_kg  : object mass in kilograms
-    shape    : one of SHAPE_PARAMS keys
     height   : drop height in metres
-    dt       : integration time step in seconds
 
     Returns
     -------
     dict with keys:
-        fall_time       float  – seconds to reach ground
-        final_velocity  float  – m/s at impact
-        ke_impact       float  – kinetic energy at impact  (J)
-        momentum        float  – linear momentum at impact (kg·m/s)
-        v_terminal      float  – terminal velocity (m/s or inf)
-        t_series        list   – time stamps for animation / plotting
-        y_series        list   – height above ground at each stamp
-        v_series        list   – velocity at each stamp
+        fall_time       float – seconds to reach the ground
+        final_velocity  float – m/s at impact
+        ke_impact       float – kinetic energy at impact (J)
+        momentum        float – linear momentum at impact (kg·m/s)
+        t_series        list  – time stamps for animation / plotting
+        y_series        list  – height above ground at each stamp
+        v_series        list  – velocity at each stamp
     """
-    g   = PLANETARY_GRAVITY[planet]
-    rho = AIR_DENSITY[planet]
-    Cd  = SHAPE_PARAMS[shape]["Cd"]
-    A   = reference_area(mass_kg, shape)
-    v_t = terminal_velocity(mass_kg, shape, planet)
+    g = PLANETARY_GRAVITY[planet]
 
-    y, v, t = float(height), 0.0, 0.0
-    t_list: list[float] = [t]
-    y_list: list[float] = [y]
-    v_list: list[float] = [v]
+    fall_time = math.sqrt(2.0 * height / g)
+    v_impact = g * fall_time
 
-    while y > 0.0:
-        drag_force = 0.5 * rho * Cd * A * v * v if rho > 0 else 0.0
-        a = g - drag_force / mass_kg        # net downward acceleration
-        a = max(a, 0.0)                     # drag can never reverse motion here
+    step = max(MIN_STEP, fall_time / MAX_POINTS)
 
-        v += a * dt
-        y -= v * dt
-        t += dt
+    t_list: list[float] = []
+    y_list: list[float] = []
+    v_list: list[float] = []
 
-        y = max(y, 0.0)
-        t_list.append(round(t,  6))
-        y_list.append(round(y,  6))
-        v_list.append(round(v,  6))
+    t = 0.0
+    while t < fall_time:
+        t_list.append(round(t, 6))
+        y_list.append(round(height - 0.5 * g * t * t, 6))
+        v_list.append(round(g * t, 6))
+        t += step
 
-        if y == 0.0:
-            break
+    # Final point lands exactly at impact
+    t_list.append(round(fall_time, 6))
+    y_list.append(0.0)
+    v_list.append(round(v_impact, 6))
 
-    v_impact = v_list[-1]
     return {
-        "fall_time":      t,
+        "fall_time":      fall_time,
         "final_velocity": v_impact,
         "ke_impact":      0.5 * mass_kg * v_impact ** 2,
         "momentum":       mass_kg * v_impact,
-        "v_terminal":     v_t,
         "t_series":       t_list,
         "y_series":       y_list,
         "v_series":       v_list,
     }
 
 
-def run_all_planets(mass_kg: float, shape: str, height: float = 100.0) -> dict[str, dict]:
+def run_all_planets(mass_kg: float, height: float = 100.0) -> dict[str, dict]:
     """Run simulate_fall for every planet and return {planet: result}."""
-    return {p: simulate_fall(p, mass_kg, shape, height) for p in PLANETARY_GRAVITY}
+    return {p: simulate_fall(p, mass_kg, height) for p in PLANETARY_GRAVITY}
 
 
 def impact_description(ke_joules: float) -> str:
