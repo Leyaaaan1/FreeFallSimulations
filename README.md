@@ -1,9 +1,10 @@
 # Planetary Free-Fall Simulator
 
-![Python](https://img.shields.io/badge/python-3.8%2B-blue)
-![Flask](https://img.shields.io/badge/flask-backend-black)
+**Python · Flask · Vanilla JavaScript**
 
-A web-based physics simulator that models free-fall motion across all nine planetary bodies in our solar system, accounting for gravity, atmospheric drag, and object shape.
+A web-based physics simulator that drops the same object on nine planetary bodies at once, using each world's real surface gravity, and shows how differently it falls.
+
+**Live demo:** https://free-fall-ten.vercel.app/
 
 ## Table of Contents
 
@@ -11,124 +12,160 @@ A web-based physics simulator that models free-fall motion across all nine plane
 - [Features](#features)
 - [How It Works](#how-it-works)
 - [Physics Model](#physics-model)
+- [Assumptions and Limitations](#assumptions-and-limitations)
 - [Planetary Data](#planetary-data)
+- [Example Results](#example-results)
 - [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
 - [Getting Started](#getting-started)
-- [Usage](#usage)
-- [License](#license)
 
 ## Overview
 
-The simulator drops a user-defined object simultaneously across nine planetary environments, integrating the equations of motion in real time to capture the interplay between gravity, atmospheric density, and drag. Results are visualized through a live animation and a sortable data table.
+The simulator models **ideal free fall**: an object released from rest under constant surface gravity, with no air resistance. Atmospheric density changes with altitude, so a single constant value is not accurate for tall drops. Ignoring air keeps every result exact and easy to verify by hand.
+
+Results are shown through a live animation and a sortable results table.
 
 ## Features
 
-- Real physics integration accounting for drag, gravity, and atmosphere
-- Nine planets with accurate gravitational and atmospheric data
-- Three configurable shape/drag profiles: circle, square, rocket
-- 50+ searchable FontAwesome icons for object customization
-- Sortable results table (fall time, velocity, kinetic energy, gravity)
-- Pause and restart controls for animations
+- Nine planetary bodies: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto
+- Exact closed-form physics, with no numerical error
+- Live animation with real-time velocity readouts and impact detection
+- Sortable results (fall time, impact velocity, kinetic energy, gravity)
+- Impact severity classification, from "Gentle tap" to "Catastrophic"
+- Searchable icon picker (FontAwesome) to customize the falling object
+- Pause and restart controls
 - Dark theme UI with color-coded planets
 
 ## How It Works
 
 ### Input Parameters
 
-| Parameter | Range | Notes |
-|---|---|---|
-| Object Mass | 0.001 – 10,000 kg | User-defined |
-| Drop Height | 0.1 – 100,000 m | User-defined |
-| Shape / Drag Profile | Circle (Cd 0.47), Square (Cd 1.05), Rocket (Cd 0.075) | Determines drag coefficient |
+| Parameter   | Range             | Notes                                                                      |
+| ----------- | ----------------- | -------------------------------------------------------------------------- |
+| Object mass | 0.001 – 10,000 kg | User-defined                                                               |
+| Drop height | 0.1 – 100,000 m   | The UI offers quick presets (50 m – 300 m); the API accepts the full range |
+| Object icon | Any listed icon   | Cosmetic only, does not affect physics                                     |
 
-### Real-Time Animation
-
-Objects fall simultaneously across all nine planets, with live velocity readouts and impact detection.
-
-### Real-Time Results Table
+### Outputs (per planet)
 
 - Fall time
 - Impact velocity
 - Kinetic energy at impact
-- Terminal velocity
 - Momentum at impact
-- Impact severity classification (Gentle tap → Catastrophic)
+- Impact severity classification
 
 ## Physics Model
 
-The simulator numerically integrates the equation of motion for a body falling under gravity with quadratic atmospheric drag:
+The object starts at rest and accelerates under constant gravity `g`:
 
 ```
-m * (dv/dt) = m*g - 0.5 * ρ * Cd * A * v²
+y(t)      = h − ½ g t²
+v(t)      = g t
+fall time = √(2h / g)
+impact v  = √(2 g h)
+KE        = ½ m v²  (= m g h)
+p         = m v
 ```
 
-Where:
+| Symbol | Description               | Unit |
+| ------ | ------------------------- | ---- |
+| h      | Drop height               | m    |
+| g      | Planetary surface gravity | m/s² |
+| m      | Object mass               | kg   |
+| t      | Time                      | s    |
+| v      | Velocity                  | m/s  |
 
-| Symbol | Description | Unit |
-|---|---|---|
-| `m` | Object mass | kg |
-| `g` | Planetary surface gravity | m/s² |
-| `ρ` | Atmospheric density | kg/m³ |
-| `Cd` | Drag coefficient | dimensionless |
-| `A` | Reference area, `A = A_k * m^(2/3)` | m² |
-| `v` | Velocity | m/s |
+**Mass does not affect fall time or impact velocity.** It only changes kinetic energy and momentum. This is the same effect seen in the Apollo 15 hammer-and-feather demonstration on the Moon.
 
-**Terminal velocity** (solved at `dv/dt = 0`):
+## Assumptions and Limitations
 
-```
-v_terminal = sqrt( (2 * m * g) / (ρ * Cd * A) )
-```
-
-**Integration step:** 0.005 s (200 iterations/second)
+- **No air resistance.** No atmosphere, drag, or terminal velocity is modeled.
+- **Constant gravity.** `g` does not change with altitude. This is a good approximation for drops of a few kilometers, and less accurate for very tall drops.
+- **Starts from rest.** Initial velocity is zero.
+- **Vertical motion only.** No wind, rotation, or horizontal velocity.
+- **Gas and ice giants.** Jupiter, Saturn, Uranus and Neptune have no solid surface, so gravity is taken at the reference level (about 1 bar pressure) and "impact" means reaching that level.
+- **Educational tool.** Not intended for orbital mechanics or engineering calculations.
 
 ## Planetary Data
 
-| Planet | Gravity (m/s²) | Atmosphere (kg/m³) | Notes |
-|---|---|---|---|
-| Mercury | 3.70 | 0.000 | No atmosphere → infinite terminal velocity |
-| Venus | 8.87 | 65.00 | Super-dense CO₂ atmosphere |
-| Earth | 9.81 | 1.225 | Reference standard |
-| Mars | 3.71 | 0.020 | Thin atmosphere |
-| Jupiter | 24.79 | 1.330 | Extreme gravity |
-| Saturn | 10.44 | 0.190 | Low-density atmosphere |
-| Uranus | 8.69 | 0.420 | Ice giant |
-| Neptune | 11.15 | 0.450 | Wind giant |
-| Pluto | 0.62 | 0.000 | Dwarf planet, no atmosphere |
+| Planet  | Surface gravity (m/s²) |
+| ------- | ---------------------- |
+| Mercury | 3.70                   |
+| Venus   | 8.87                   |
+| Earth   | 9.81                   |
+| Mars    | 3.71                   |
+| Jupiter | 24.79                  |
+| Saturn  | 10.44                  |
+| Uranus  | 8.69                   |
+| Neptune | 11.15                  |
+| Pluto   | 0.62                   |
+
+Pluto is classified as a dwarf planet and is included as a ninth body.
+
+## Example Results
+
+Drop height 100 m, any mass:
+
+| Planet  | Fall time | Impact velocity |
+| ------- | --------- | --------------- |
+| Mercury | 7.35 s    | 27.2 m/s        |
+| Venus   | 4.75 s    | 42.1 m/s        |
+| Earth   | 4.52 s    | 44.3 m/s        |
+| Mars    | 7.34 s    | 27.2 m/s        |
+| Jupiter | 2.84 s    | 70.4 m/s        |
+| Saturn  | 4.38 s    | 45.7 m/s        |
+| Uranus  | 4.80 s    | 41.7 m/s        |
+| Neptune | 4.24 s    | 47.2 m/s        |
+| Pluto   | 17.96 s   | 11.1 m/s        |
 
 ## Tech Stack
 
-| Layer | Technology |
-|---|---|
-| Backend | Flask (Python) + custom physics engine |
-| Frontend | Vanilla JavaScript + CSS Grid |
-| Physics | Pure Python numerical integration |
-| Hosting | Vercel (serverless) |
+| Layer    | Technology                         |
+| -------- | ---------------------------------- |
+| Backend  | Flask (Python)                     |
+| Physics  | Pure Python, closed-form equations |
+| Frontend | Vanilla JavaScript + CSS Grid      |
+| Icons    | FontAwesome 6 Free                 |
+| Hosting  | Vercel (serverless)                |
+
+## Project Structure
+
+```
+FreeFallSimulations/
+├── index.py                 # Flask app and API routes
+├── freefall_web/
+│   └── physics.py           # Physics engine
+├── templates/
+│   └── index.html
+├── static/
+│   ├── css/style.css
+│   └── js/sim.js
+└── requirements.txt
+```
 
 ## Getting Started
 
 ### Prerequisites
 
-- Python 3.8 or later
+- Python 3.9 or later
 - pip
 
 ### Installation
 
 ```bash
-git clone <repository-url>
-cd freefall_web
+git clone https://github.com/Leyaaaan1/FreeFallSimulations.git
+cd FreeFallSimulations
 pip install -r requirements.txt
 ```
 
-## Usage
+### Run
 
 ```bash
-python App.py
+python index.py
 ```
 
-Then open your browser to the address printed in the terminal (typically `http://localhost:5000`).
+Then open http://localhost:5000 in your browser.
 
-**Live demo:** [Deploy URL]
+## Author
 
-## License
-
-License to be determined. Add a `LICENSE` file to specify usage terms before public release.
+Created by **Lean Paninsoro** · [GitHub](https://github.com/Leyaaaan1)
