@@ -118,13 +118,14 @@
     <style>
         /* ── Variables (mirror your dark theme) ───────────────────────── */
         :root {
-            --seo-bg:        #0a0e1a;
-            --seo-surface:   #111827;
-            --seo-border:    rgba(99,149,237,.18);
-            --seo-accent:    #6495ed;
-            --seo-gold:      #ffd700;
-            --seo-text:      #c9d6ef;
-            --seo-muted:     #6b7a9a;
+            --seo-bg:        #000000;
+            --seo-surface:   #111111;
+            --seo-border:    rgba(255,255,255,.08);
+            --seo-green:     #166534;
+            --seo-accent:    #ffffff;
+            --seo-gold:      #ffffff;
+            --seo-text:      #ffffff;
+            --seo-muted:     rgba(255,255,255,.75);
             --seo-radius:    12px;
             --font-mono:     'Space Mono', monospace;
             --font-sans:     'Syne', sans-serif;
@@ -141,8 +142,8 @@
             flex-wrap: wrap;
         }
         .seo-hero__badge {
-            background: rgba(100,149,237,.12);
-            border: 1px solid rgba(100,149,237,.35);
+            background: rgba(22,101,52,.4);
+            border: none;
             border-radius: 6px;
             padding: 4px 10px;
             font-family: var(--font-mono);
@@ -162,8 +163,8 @@
             display: flex; gap: 12px; flex-wrap: wrap; margin-left: auto;
         }
         .seo-pill {
-            background: rgba(255,215,0,.07);
-            border: 1px solid rgba(255,215,0,.2);
+            background: rgba(22,101,52,.4);
+            border: none;
             color: var(--seo-gold);
             font-family: var(--font-mono);
             font-size: .65rem;
@@ -197,7 +198,7 @@
 
         .seo-card {
             background: var(--seo-surface);
-            border: 1px solid var(--seo-border);
+            border: none;
             border-radius: var(--seo-radius);
             padding: 28px 28px 24px;
         }
@@ -214,7 +215,7 @@
             font-family: var(--font-sans);
             font-weight: 800;
             font-size: 1.45rem;
-            color: #e8edf8;
+            color: #ffffff;
             margin: 0 auto 24px;
             max-width: 1300px;
             padding-bottom: 10px;
@@ -225,19 +226,19 @@
 
         /* formula block */
         .formula-box {
-            background: #0d1220;
-            border: 1px solid rgba(100,149,237,.25);
-            border-left: 3px solid var(--seo-accent);
+            background: #000000;
+            border: none;
+            border-left: 3px solid var(--seo-green);
             border-radius: 8px;
             padding: 14px 18px;
             font-family: var(--font-mono);
             font-size: .82rem;
-            color: #a8c4f0;
+            color: #ffffff;
             line-height: 1.8;
             margin: 14px 0;
         }
-        .formula-box .var { color: var(--seo-gold); }
-        .formula-box .eq  { color: #7af090; }
+        .formula-box .var { color: #ffffff; font-weight: 700; }
+        .formula-box .eq  { color: #ffffff; }
 
         /* planet table */
         .planet-table {
@@ -247,7 +248,7 @@
             font-family: var(--font-mono);
         }
         .planet-table th {
-            background: rgba(100,149,237,.12);
+            background: rgba(22,101,52,.4);
             color: var(--seo-accent);
             font-size: .7rem;
             letter-spacing: .06em;
@@ -263,17 +264,17 @@
             vertical-align: middle;
         }
         .planet-table tr:last-child td { border-bottom: none; }
-        .planet-table tr:hover td { background: rgba(100,149,237,.06); }
+        .planet-table tr:hover td { background: rgba(255,255,255,.04); }
         .planet-emoji { font-size: 1rem; margin-right: 6px; }
         .g-badge {
             display: inline-block;
-            background: rgba(100,149,237,.15);
+            background: rgba(22,101,52,.4);
             border-radius: 4px;
             padding: 2px 6px;
             color: var(--seo-accent);
             font-size: .72rem;
         }
-        .highlight-earth td { background: rgba(100,149,237,.07); }
+        .highlight-earth td { background: rgba(22,101,52,.25); }
 
         /* FAQ accordion */
         .faq-list { list-style: none; margin: 0; padding: 0; }
@@ -313,7 +314,7 @@
             padding: 0 0 18px 24px;
         }
         .faq-a code {
-            background: rgba(100,149,237,.12);
+            background: rgba(22,101,52,.4);
             padding: 1px 6px;
             border-radius: 4px;
             font-family: var(--font-mono);
@@ -324,7 +325,7 @@
         /* Concept cards */
         .concept-card {
             background: var(--seo-surface);
-            border: 1px solid var(--seo-border);
+            border: none;
             border-radius: var(--seo-radius);
             padding: 22px;
             position: relative;
@@ -335,7 +336,7 @@
             position: absolute;
             top: 0; left: 0; right: 0;
             height: 2px;
-            background: var(--seo-accent);
+            background: var(--seo-green);
         }
         .concept-icon {
             font-size: 1.6rem;
@@ -346,7 +347,7 @@
             font-family: var(--font-sans);
             font-size: .9rem;
             font-weight: 700;
-            color: #e8edf8;
+            color: #ffffff;
             margin: 0 0 8px;
         }
         .concept-card p {
@@ -379,8 +380,8 @@
             display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px;
         }
         .topic-chip {
-            background: rgba(100,149,237,.1);
-            border: 1px solid rgba(100,149,237,.25);
+            background: rgba(22,101,52,.4);
+            border: none;
             color: var(--seo-accent);
             font-size: .72rem;
             font-family: var(--font-mono);
@@ -389,7 +390,7 @@
             cursor: pointer;
             transition: background .2s;
         }
-        .topic-chip:hover { background: rgba(100,149,237,.22); }
+        .topic-chip:hover { background: rgba(22,101,52,.6); }
 
         /* footer SEO note */
         .seo-footnote {
@@ -517,9 +518,8 @@
         </div>
 
         <div class="speed-legend">
-            <span><i class="fa-solid fa-circle" style="color:#6495ed"></i> slow</span>
-            <span><i class="fa-solid fa-circle" style="color:#ffd700"></i> medium</span>
-            <span><i class="fa-solid fa-circle" style="color:#ff4444"></i> fast</span>
+            <span><i class="fa-solid fa-circle" style="color:#ffffff"></i> slow</span>
+            <span><i class="fa-solid fa-circle" style="color:#15803d"></i> fast</span>
         </div>
     </section>
 
@@ -558,45 +558,45 @@
         <!-- Core equations card -->
         <div class="seo-card">
             <h2>Core Free Fall Equations (Ideal, No Air Resistance)</h2>
-            <p style="font-size:.82rem;color:#6b7a9a;line-height:1.6;margin-bottom:12px">
+            <p style="font-size:.82rem;color:rgba(255,255,255,.75);line-height:1.6;margin-bottom:12px">
                 With no air resistance, all objects fall identically regardless of mass. These are the exact kinematic equations this simulator uses.
             </p>
             <div class="formula-box">
                 <span class="var">d</span> = ½ × <span class="var">g</span> × <span class="var">t</span>²
-                <span style="color:#6b7a9a;font-size:.75rem"> &nbsp;← distance (m)</span><br/>
+                <span style="color:rgba(255,255,255,.75);font-size:.75rem"> &nbsp;← distance (m)</span><br/>
                 <span class="var">v</span> = <span class="var">g</span> × <span class="var">t</span>
-                <span style="color:#6b7a9a;font-size:.75rem"> &nbsp;← velocity (m/s)</span><br/>
+                <span style="color:rgba(255,255,255,.75);font-size:.75rem"> &nbsp;← velocity (m/s)</span><br/>
                 <span class="var">t</span> = √(2<span class="var">d</span> / <span class="var">g</span>)
-                <span style="color:#6b7a9a;font-size:.75rem"> &nbsp;← fall time (s)</span><br/>
+                <span style="color:rgba(255,255,255,.75);font-size:.75rem"> &nbsp;← fall time (s)</span><br/>
                 <span class="var">v²</span> = 2 × <span class="var">g</span> × <span class="var">d</span>
-                <span style="color:#6b7a9a;font-size:.75rem"> &nbsp;← velocity² shortcut</span>
+                <span style="color:rgba(255,255,255,.75);font-size:.75rem"> &nbsp;← velocity² shortcut</span>
             </div>
-            <p style="font-size:.75rem;color:#6b7a9a;margin:0">
-                <strong style="color:#a8c4f0">d</strong> = distance (m) &nbsp;·&nbsp;
-                <strong style="color:#a8c4f0">g</strong> = gravity (m/s²) &nbsp;·&nbsp;
-                <strong style="color:#a8c4f0">t</strong> = time (s) &nbsp;·&nbsp;
-                <strong style="color:#a8c4f0">v</strong> = velocity (m/s)
+            <p style="font-size:.75rem;color:rgba(255,255,255,.75);margin:0">
+                <strong style="color:#ffffff">d</strong> = distance (m) &nbsp;·&nbsp;
+                <strong style="color:#ffffff">g</strong> = gravity (m/s²) &nbsp;·&nbsp;
+                <strong style="color:#ffffff">t</strong> = time (s) &nbsp;·&nbsp;
+                <strong style="color:#ffffff">v</strong> = velocity (m/s)
             </p>
         </div>
 
         <!-- Energy card -->
         <div class="seo-card">
             <h2>Impact Energy &amp; Momentum</h2>
-            <p style="font-size:.82rem;color:#6b7a9a;line-height:1.6;margin-bottom:12px">
+            <p style="font-size:.82rem;color:rgba(255,255,255,.75);line-height:1.6;margin-bottom:12px">
                 Mass does not change how fast an object falls, but it does change how hard it hits. These values are computed from the exact impact velocity.
             </p>
             <div class="formula-box">
                 <span class="var">v</span> = √(2 <span class="var">g</span> <span class="var">h</span>)
-                <span style="color:#6b7a9a;font-size:.75rem"> &nbsp;← impact velocity (m/s)</span><br/>
+                <span style="color:rgba(255,255,255,.75);font-size:.75rem"> &nbsp;← impact velocity (m/s)</span><br/>
                 <span class="var">KE</span> = ½<span class="var">mv</span>² = <span class="var">mgh</span>
-                <span style="color:#6b7a9a;font-size:.75rem"> &nbsp;← kinetic energy (J)</span><br/>
+                <span style="color:rgba(255,255,255,.75);font-size:.75rem"> &nbsp;← kinetic energy (J)</span><br/>
                 <span class="var">p</span> = <span class="var">m</span> × <span class="var">v</span>
-                <span style="color:#6b7a9a;font-size:.75rem"> &nbsp;← momentum (kg·m/s)</span>
+                <span style="color:rgba(255,255,255,.75);font-size:.75rem"> &nbsp;← momentum (kg·m/s)</span>
             </div>
-            <p style="font-size:.75rem;color:#6b7a9a;margin:0">
-                <strong style="color:#a8c4f0">m</strong> = mass (kg) &nbsp;·&nbsp;
-                <strong style="color:#a8c4f0">h</strong> = drop height (m) &nbsp;·&nbsp;
-                <strong style="color:#a8c4f0">p</strong> = momentum
+            <p style="font-size:.75rem;color:rgba(255,255,255,.75);margin:0">
+                <strong style="color:#ffffff">m</strong> = mass (kg) &nbsp;·&nbsp;
+                <strong style="color:#ffffff">h</strong> = drop height (m) &nbsp;·&nbsp;
+                <strong style="color:#ffffff">p</strong> = momentum
             </p>
         </div>
 
@@ -609,9 +609,9 @@
     </h2>
 
     <div class="seo-card" style="max-width:1300px;margin:0 auto 48px;overflow-x:auto">
-        <p style="font-size:.82rem;color:#6b7a9a;margin:0 0 18px;line-height:1.6">
-            Using <code style="background:rgba(100,149,237,.12);padding:2px 6px;border-radius:4px;font-family:'Space Mono',monospace;font-size:.75rem;color:#6495ed">t = √(2h / g)</code> for fall time and
-            <code style="background:rgba(100,149,237,.12);padding:2px 6px;border-radius:4px;font-family:'Space Mono',monospace;font-size:.75rem;color:#6495ed">v = g × t</code> for impact velocity. Drop height h = 100 m, no air resistance.
+        <p style="font-size:.82rem;color:rgba(255,255,255,.75);margin:0 0 18px;line-height:1.6">
+            Using <code style="background:rgba(22,101,52,.4);padding:2px 6px;border-radius:4px;font-family:'Space Mono',monospace;font-size:.75rem;color:#ffffff">t = √(2h / g)</code> for fall time and
+            <code style="background:rgba(22,101,52,.4);padding:2px 6px;border-radius:4px;font-family:'Space Mono',monospace;font-size:.75rem;color:#ffffff">v = g × t</code> for impact velocity. Drop height h = 100 m, no air resistance.
         </p>
         <table class="planet-table" aria-label="Free fall data for all planets">
             <thead>
@@ -629,67 +629,67 @@
                 <td><span class="g-badge">3.70 m/s²</span></td>
                 <td>7.35 s</td>
                 <td>27.2 m/s</td>
-                <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#a8c4f0">√(200/3.70)</td>
+                <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#ffffff">√(200/3.70)</td>
             </tr>
             <tr>
                 <td><span class="planet-emoji">♀</span> Venus</td>
                 <td><span class="g-badge">8.87 m/s²</span></td>
                 <td>4.75 s</td>
                 <td>42.1 m/s</td>
-                <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#a8c4f0">√(200/8.87)</td>
+                <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#ffffff">√(200/8.87)</td>
             </tr>
             <tr class="highlight-earth">
                 <td><span class="planet-emoji">🌍</span> <strong>Earth</strong></td>
                 <td><span class="g-badge">9.81 m/s²</span></td>
                 <td><strong>4.52 s</strong></td>
                 <td><strong>44.3 m/s</strong></td>
-                <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#a8c4f0">√(200/9.81)</td>
+                <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#ffffff">√(200/9.81)</td>
             </tr>
             <tr>
                 <td><span class="planet-emoji">♂</span> Mars</td>
                 <td><span class="g-badge">3.71 m/s²</span></td>
                 <td>7.34 s</td>
                 <td>27.2 m/s</td>
-                <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#a8c4f0">√(200/3.71)</td>
+                <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#ffffff">√(200/3.71)</td>
             </tr>
             <tr>
                 <td><span class="planet-emoji">♃</span> Jupiter</td>
                 <td><span class="g-badge">24.79 m/s²</span></td>
                 <td>2.84 s</td>
                 <td>70.4 m/s</td>
-                <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#a8c4f0">√(200/24.79)</td>
+                <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#ffffff">√(200/24.79)</td>
             </tr>
             <tr>
                 <td><span class="planet-emoji">♄</span> Saturn</td>
                 <td><span class="g-badge">10.44 m/s²</span></td>
                 <td>4.38 s</td>
                 <td>45.7 m/s</td>
-                <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#a8c4f0">√(200/10.44)</td>
+                <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#ffffff">√(200/10.44)</td>
             </tr>
             <tr>
                 <td><span class="planet-emoji">⛢</span> Uranus</td>
                 <td><span class="g-badge">8.69 m/s²</span></td>
                 <td>4.80 s</td>
                 <td>41.7 m/s</td>
-                <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#a8c4f0">√(200/8.69)</td>
+                <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#ffffff">√(200/8.69)</td>
             </tr>
             <tr>
                 <td><span class="planet-emoji">♆</span> Neptune</td>
                 <td><span class="g-badge">11.15 m/s²</span></td>
                 <td>4.24 s</td>
                 <td>47.2 m/s</td>
-                <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#a8c4f0">√(200/11.15)</td>
+                <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#ffffff">√(200/11.15)</td>
             </tr>
             <tr>
                 <td><span class="planet-emoji">♇</span> Pluto</td>
                 <td><span class="g-badge">0.62 m/s²</span></td>
                 <td>17.96 s</td>
                 <td>11.1 m/s</td>
-                <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#a8c4f0">√(200/0.62)</td>
+                <td style="font-family:'Space Mono',monospace;font-size:.72rem;color:#ffffff">√(200/0.62)</td>
             </tr>
             </tbody>
         </table>
-        <p style="font-size:.72rem;color:#6b7a9a;margin:14px 0 0;font-family:'Space Mono',monospace">
+        <p style="font-size:.72rem;color:rgba(255,255,255,.75);margin:14px 0 0;font-family:'Space Mono',monospace">
             Ideal free fall: constant surface gravity, no atmosphere. Run the simulator above to try other masses and heights.
         </p>
     </div>
@@ -705,19 +705,19 @@
         <div class="concept-card">
             <span class="concept-icon"></span>
             <h3>What is Free Fall?</h3>
-            <p>Free fall is motion under gravity alone with no other forces. Without air resistance, every object — a feather or a bowling ball — falls with <strong style="color:#a8c4f0">identical acceleration</strong>. Astronaut David Scott demonstrated this on the Moon in 1971 by dropping a hammer and a feather together.</p>
+            <p>Free fall is motion under gravity alone with no other forces. Without air resistance, every object — a feather or a bowling ball — falls with <strong style="color:#ffffff">identical acceleration</strong>. Astronaut David Scott demonstrated this on the Moon in 1971 by dropping a hammer and a feather together.</p>
         </div>
 
         <div class="concept-card">
             <span class="concept-icon"></span>
             <h3>Why Ignore Air Resistance?</h3>
-            <p>Air density changes with altitude, so a single constant value is not accurate for tall drops. This simulator uses <strong style="color:#a8c4f0">ideal free fall</strong> so every result follows exact equations that you can check by hand.</p>
+            <p>Air density changes with altitude, so a single constant value is not accurate for tall drops. This simulator uses <strong style="color:#ffffff">ideal free fall</strong> so every result follows exact equations that you can check by hand.</p>
         </div>
 
         <div class="concept-card">
             <span class="concept-icon"></span>
             <h3>Does Mass Affect Free Fall?</h3>
-            <p><strong style="color:#a8c4f0">No.</strong> Fall time and impact velocity depend only on gravity and height. Mass changes only the <strong style="color:#a8c4f0">kinetic energy</strong> and <strong style="color:#a8c4f0">momentum</strong> at impact, so a heavier object hits harder but does not land sooner.</p>
+            <p><strong style="color:#ffffff">No.</strong> Fall time and impact velocity depend only on gravity and height. Mass changes only the <strong style="color:#ffffff">kinetic energy</strong> and <strong style="color:#ffffff">momentum</strong> at impact, so a heavier object hits harder but does not land sooner.</p>
         </div>
 
         <div class="concept-card">
@@ -729,13 +729,13 @@
         <div class="concept-card">
             <span class="concept-icon"></span>
             <h3>Why Jupiter Falls Fastest</h3>
-            <p>Jupiter's reference-level gravity of 24.79 m/s² is 2.53× Earth's. An object reaches <strong style="color:#a8c4f0">70+ m/s</strong> after a 100 m drop, while on Pluto (0.62 m/s²) it reaches only about 11 m/s.</p>
+            <p>Jupiter's reference-level gravity of 24.79 m/s² is 2.53× Earth's. An object reaches <strong style="color:#ffffff">70+ m/s</strong> after a 100 m drop, while on Pluto (0.62 m/s²) it reaches only about 11 m/s.</p>
         </div>
 
         <div class="concept-card">
             <span class="concept-icon"></span>
             <h3>Exact Equations</h3>
-            <p>This simulator uses the <strong style="color:#a8c4f0">closed-form equations</strong> y = h − ½gt² and v = gt, not step-by-step approximation, so fall time and impact velocity are exact for constant gravity.</p>
+            <p>This simulator uses the <strong style="color:#ffffff">closed-form equations</strong> y = h − ½gt² and v = gt, not step-by-step approximation, so fall time and impact velocity are exact for constant gravity.</p>
         </div>
 
     </div>
@@ -836,7 +836,7 @@
 
     <!-- Topic chips for internal linking / keyword density -->
     <div style="max-width:1300px;margin:24px auto 0">
-        <p style="font-size:.75rem;color:#6b7a9a;margin:0 0 10px;font-family:'Space Mono',monospace">Explore topics:</p>
+        <p style="font-size:.75rem;color:rgba(255,255,255,.75);margin:0 0 10px;font-family:'Space Mono',monospace">Explore topics:</p>
         <div class="topic-chips">
             <span class="topic-chip">free fall formula</span>
             <span class="topic-chip">impact velocity calculator</span>
@@ -851,10 +851,10 @@
         </div>
     </div>
 
-    <div style="max-width:1300px;margin:48px auto 0;padding:28px;background:var(--seo-surface);border:1px solid var(--seo-border);border-radius:var(--seo-radius)">
+    <div style="max-width:1300px;margin:48px auto 0;padding:28px;background:var(--seo-surface);border:none;border-radius:var(--seo-radius)">
         <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
             <div>
-                <h3 style="font-family:var(--font-sans);font-weight:800;color:#e8edf8;margin:0 0 8px;font-size:0.95rem">
+                <h3 style="font-family:var(--font-sans);font-weight:800;color:#ffffff;margin:0 0 8px;font-size:0.95rem">
                     <i class="fa-solid fa-user-astronaut" style="color:var(--seo-accent);margin-right:8px"></i>Created by
                 </h3>
                 <p style="font-family:var(--font-sans);font-size:0.9rem;color:var(--seo-text);margin:0;font-weight:600">Lean Paninsoro</p>

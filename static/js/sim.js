@@ -2,9 +2,9 @@
 "use strict";
 
 const PLANET_COLORS = {
-    Mercury: "#a8a8a8", Venus: "#ffc649",  Earth:   "#6495ed",
-    Mars:    "#cd5c5c", Jupiter: "#ff8c00", Saturn:  "#ffd700",
-    Uranus:  "#40e0d0", Neptune: "#1e90ff", Pluto:   "#8b6355",
+    Mercury: "#ffffff", Venus: "#ffffff",  Earth:   "#ffffff",
+    Mars:    "#ffffff", Jupiter: "#ffffff", Saturn:  "#ffffff",
+    Uranus:  "#ffffff", Neptune: "#ffffff", Pluto:   "#ffffff",
 };
 
 // ── State ─────────────────────────────────────────────────────────────────────
@@ -344,9 +344,7 @@ function tick(ts) {
 }
 
 function speedColor(ratio) {
-    if (ratio < 0.4)  return "#6495ed";
-    if (ratio < 0.75) return "#ffd700";
-    return "#ff4444";
+    return ratio < 0.75 ? "#ffffff" : "#15803d";
 }
 
 function addTrail(state, x, y) {
