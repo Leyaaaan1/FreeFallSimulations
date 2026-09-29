@@ -291,7 +291,7 @@ main {
     margin-bottom: 8px;
     cursor: default;
 }
-.result-card.landed { border-left: 3px solid var(--primary-l); }
+.result-card.landed { border: 1px solid var(--primary-l); }
 
 .card-header {
     display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
