@@ -2,35 +2,36 @@
 "use strict";
 
 const PLANET_COLORS = {
-    Mercury: "#ffffff", Venus: "#ffffff",  Earth:   "#ffffff",
-    Mars:    "#ffffff", Jupiter: "#ffffff", Saturn:  "#ffffff",
-    Uranus:  "#ffffff", Neptune: "#ffffff", Pluto:   "#ffffff",
+    Mercury: "#a8a8a8", Venus: "#ffc649", Earth: "#6495ed",
+    Mars: "#cd5c5c", Jupiter: "#ff8c00", Saturn: "#ffd700",
+    Uranus: "#40e0d0", Neptune: "#1e90ff", Pluto: "#8b6355",
 };
 
 // ── State ─────────────────────────────────────────────────────────────────────
-let simData       = null;
-let animState     = [];
-let rafId         = null;
-let paused        = false;
-let selectedIcon  = null;
-let currentSort   = "fall_time";
+let simData = null;
+let animState = [];
+let rafId = null;
+let paused = false;
+let selectedIcon = null;
+let currentSort = "fall_time";
 let currentHeight = 100;
+let currentShape = "circle";
 
 // ── DOM refs ──────────────────────────────────────────────────────────────────
-const massInput       = document.getElementById("mass-input");
-const iconSearch      = document.getElementById("icon-search");
-const iconGrid        = document.getElementById("icon-grid");
+const massInput = document.getElementById("mass-input");
+const iconSearch = document.getElementById("icon-search");
+const iconGrid = document.getElementById("icon-grid");
 const selectedIconRow = document.getElementById("selected-icon-row");
 const selectedIconPrv = document.getElementById("selected-icon-preview");
-const selectedIconNm  = document.getElementById("selected-icon-name");
-const clearIconBtn    = document.getElementById("clear-icon-btn");
-const runBtn          = document.getElementById("run-btn");
-const pauseBtn        = document.getElementById("pause-btn");
-const restartBtn      = document.getElementById("restart-btn");
-const simStage        = document.getElementById("sim-stage");
-const simTitle        = document.getElementById("sim-title");
-const resultsTable    = document.getElementById("results-table");
-const sortSelect      = document.getElementById("sort-select");
+const selectedIconNm = document.getElementById("selected-icon-name");
+const clearIconBtn = document.getElementById("clear-icon-btn");
+const runBtn = document.getElementById("run-btn");
+const pauseBtn = document.getElementById("pause-btn");
+const restartBtn = document.getElementById("restart-btn");
+const simStage = document.getElementById("sim-stage");
+const simTitle = document.getElementById("sim-title");
+const resultsTable = document.getElementById("results-table");
+const sortSelect = document.getElementById("sort-select");
 
 // ── Preset mass buttons ───────────────────────────────────────────────────────
 document.querySelectorAll(".preset-btn").forEach(btn => {
@@ -49,6 +50,15 @@ document.querySelectorAll(".height-btn").forEach(btn => {
     });
 });
 
+// ── Shape buttons ─────────────────────────────────────────────────────────────
+document.querySelectorAll(".shape-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+        document.querySelectorAll(".shape-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentShape = btn.dataset.shape;
+    });
+});
+
 // ── Icon search ───────────────────────────────────────────────────────────────
 let searchDebounce = null;
 iconSearch.addEventListener("input", () => {
@@ -58,7 +68,7 @@ iconSearch.addEventListener("input", () => {
 
 async function fetchIcons() {
     try {
-        const q   = iconSearch.value.trim();
+        const q = iconSearch.value.trim();
         const res = await fetch(`/api/icons?q=${encodeURIComponent(q)}`);
         // FIX: check HTTP status before parsing
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -128,15 +138,16 @@ async function launchSim() {
 
     const body = {
         mass,
+        shape: currentShape,
         height: currentHeight,
-        icon:   selectedIcon?.name || "circle",
+        icon: selectedIcon?.name || currentShape,
     };
 
     try {
         const res = await fetch("/api/simulate", {
-            method:  "POST",
+            method: "POST",
             headers: { "Content-Type": "application/json" },
-            body:    JSON.stringify(body),
+            body: JSON.stringify(body),
         });
 
         // FIX: handle non-2xx responses with a user-visible message
@@ -150,7 +161,7 @@ async function launchSim() {
         buildStage(simData);
         buildResults(simData.results);
         startAnimation();
-        pauseBtn.disabled   = false;
+        pauseBtn.disabled = false;
         restartBtn.disabled = false;
         simTitle.textContent = `${simData.mass} kg · ${simData.icon} · ${simData.height} m drop`;
 
@@ -169,9 +180,8 @@ function showError(msg) {
     simStage.innerHTML = `
     <div class="sim-placeholder">
       <i class="fa-solid fa-triangle-exclamation" style="color:var(--danger)"></i>
-      <p class="sim-error-msg" style="color:var(--danger)"></p>
+      <p style="color:var(--danger)">${msg}</p>
     </div>`;
-    simStage.querySelector(".sim-error-msg").textContent = msg;
 }
 
 // ── Pause / Restart ───────────────────────────────────────────────────────────
@@ -203,11 +213,11 @@ function buildStage(data) {
 
     // FIX: use getBoundingClientRect for accurate dimensions after layout
     const rect = simStage.getBoundingClientRect();
-    const W = rect.width  || simStage.clientWidth;
+    const W = rect.width || simStage.clientWidth;
     const H = rect.height || simStage.clientHeight;
 
-    const planets  = data.results;
-    const colW     = W / planets.length;
+    const planets = data.results;
+    const colW = W / planets.length;
     const groundPct = 88;
 
     // Ground line
@@ -225,7 +235,7 @@ function buildStage(data) {
     const safIcon = (data.icon || "circle").replace(/[^a-z0-9-]/g, "");
 
     animState = planets.map((p, i) => {
-        const cx    = colW * i + colW / 2;
+        const cx = colW * i + colW / 2;
         const color = PLANET_COLORS[p.planet] || "#ffffff";
 
         // Planet label
@@ -269,19 +279,21 @@ function buildStage(data) {
             maxT: p.fall_time, maxV: p.final_velocity,
             height: data.height, groundPct, H,
             landed: false, trails: [],
+            mass: data.mass,
+            cur: { t: 0, y: data.height, v: 0 },
         };
     });
 }
 
 // ── Animation loop ────────────────────────────────────────────────────────────
-let lastTs     = null;
+let lastTs = null;
 let simElapsed = 0;
 
 function startAnimation() {
-    lastTs     = null;
+    lastTs = null;
     simElapsed = 0;
-    paused     = false;
-    rafId      = requestAnimationFrame(tick);
+    paused = false;
+    rafId = requestAnimationFrame(tick);
 }
 
 function cancelAnimation() {
@@ -304,31 +316,43 @@ function tick(ts) {
         if (state.landed) return;
 
         const idx = state.tSeries.findIndex(t => t >= simElapsed);
-        const i   = idx === -1 ? state.tSeries.length - 1 : idx;
+        const i = idx === -1 ? state.tSeries.length - 1 : idx;
 
-        const y = state.ySeries[i];
-        const v = state.vSeries[i];
+        // Interpolate between samples so position/values move smoothly
+        let y = state.ySeries[i];
+        let v = state.vSeries[i];
+        if (i > 0 && idx !== -1) {
+            const t0 = state.tSeries[i - 1], t1 = state.tSeries[i];
+            const f = t1 > t0 ? (simElapsed - t0) / (t1 - t0) : 1;
+            y = state.ySeries[i - 1] + (y - state.ySeries[i - 1]) * f;
+            v = state.vSeries[i - 1] + (v - state.vSeries[i - 1]) * f;
+        }
+        state.cur = { t: Math.min(simElapsed, state.maxT), y: Math.max(y, 0), v };
+        updateCardLive(state);
 
-        const topPct    = 8;
+        const topPct = 8;
         const dropRange = state.groundPct - topPct;
         // FIX: guard against divide-by-zero if height is somehow 0
         const heightSafe = state.height || 1;
-        const pct    = topPct + (1 - y / heightSafe) * dropRange;
+        const pct = topPct + (1 - y / heightSafe) * dropRange;
         const screenY = (pct / 100) * state.H;
 
-        state.objEl.style.top   = `${screenY}px`;
+        state.objEl.style.top = `${screenY}px`;
         state.objEl.style.color = speedColor(v / (state.maxV || 1));
 
         if (!paused && simElapsed % 0.06 < 0.02) addTrail(state, state.cx, screenY);
 
-        state.readEl.style.top  = `${Math.max(screenY - 12, 30)}px`;
+        state.readEl.style.top = `${Math.max(screenY - 12, 30)}px`;
         state.readEl.textContent = `${v.toFixed(1)} m/s`;
 
         if (idx === -1 || y <= 0) {
             state.landed = true;
-            state.objEl.style.top   = `${(state.groundPct / 100) * state.H}px`;
+            state.objEl.style.top = `${(state.groundPct / 100) * state.H}px`;
             state.objEl.style.color = state.color;
             state.readEl.textContent = `✓ ${state.maxV.toFixed(1)} m/s`;
+            state.readEl.style.top = `${(state.groundPct / 100) * state.H - 12}px`;
+            state.cur = { t: state.maxT, y: 0, v: state.maxV };
+            updateCardLive(state);
             impactFlash(state.cx, (state.groundPct / 100) * state.H, state.color);
             updateCardLanded(state.planet);
         } else {
@@ -344,7 +368,9 @@ function tick(ts) {
 }
 
 function speedColor(ratio) {
-    return ratio < 0.75 ? "#ffffff" : "#15803d";
+    if (ratio < 0.4) return "#6495ed";
+    if (ratio < 0.75) return "#ffd700";
+    return "#ff4444";
 }
 
 function addTrail(state, x, y) {
@@ -366,7 +392,7 @@ function impactFlash(x, y, color) {
 
 // ── Results table ─────────────────────────────────────────────────────────────
 function buildResults(results) {
-    const sorted  = [...results].sort((a, b) => a[currentSort] - b[currentSort]);
+    const sorted = [...results].sort((a, b) => a[currentSort] - b[currentSort]);
     // FIX: guard against empty results or all-zero fall_time
     const maxTime = Math.max(...results.map(r => r.fall_time), 1);
 
@@ -374,11 +400,12 @@ function buildResults(results) {
     sorted.forEach((r, delay) => {
         const card = document.createElement("div");
         card.className = "result-card";
-        card.id        = `card-${r.planet}`;
+        card.id = `card-${r.planet}`;
         card.style.animationDelay = `${delay * 0.04}s`;
 
+        const vt = r.v_terminal !== null ? `${r.v_terminal} m/s` : "∞ (no atm.)";
         const pctFill = ((r.fall_time / maxTime) * 100).toFixed(1);
-        const color   = PLANET_COLORS[r.planet] || "#ffffff";
+        const color = PLANET_COLORS[r.planet] || "#ffffff";
 
         // FIX: use textContent for user-controlled values to prevent XSS
         card.innerHTML = `
@@ -402,12 +429,20 @@ function buildResults(results) {
           <span class="metric-value"></span>
         </div>
         <div class="metric">
+          <span class="metric-label">Terminal v</span>
+          <span class="metric-value"></span>
+        </div>
+        <div class="metric">
           <span class="metric-label">Momentum</span>
+          <span class="metric-value"></span>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Air Density</span>
           <span class="metric-value"></span>
         </div>
       </div>
       <div class="progress-bar">
-        <div class="progress-fill" style="width:${pctFill}%"></div>
+        <div class="progress-fill" data-full="${pctFill}" style="width:0%"></div>
       </div>`;
 
         // Safely set text values
@@ -420,10 +455,50 @@ function buildResults(results) {
         vals[0].textContent = `${r.fall_time.toFixed(2)} s`;
         vals[1].textContent = `${r.final_velocity.toFixed(1)} m/s`;
         vals[2].textContent = `${r.ke_impact.toFixed(0)} J`;
-        vals[3].textContent = `${r.momentum.toFixed(1)} kg·m/s`;
+        vals[3].textContent = vt;
+        vals[4].textContent = `${r.momentum.toFixed(1)} kg·m/s`;
+        vals[5].textContent = `${r.air_density} kg/m³`;
+
+        // Mark the live fields so the animation loop can update them
+        vals[0].dataset.live = "time";
+        vals[1].dataset.live = "vel";
+        vals[2].dataset.live = "ke";
+        vals[4].dataset.live = "mom";
 
         resultsTable.appendChild(card);
+
+        // Show the current animation state (not the final values) right away
+        const st = animState.find(s => s.planet === r.planet);
+        if (st) updateCardLive(st, r);
     });
+}
+
+// Update a result card to match the object's current animated state.
+function updateCardLive(state, result) {
+    const card = document.getElementById(`card-${state.planet}`);
+    if (!card) return;
+    const { t, v } = state.cur;
+    const set = (key, text) => {
+        const el = card.querySelector(`[data-live="${key}"]`);
+        if (el) el.textContent = text;
+    };
+    set("time", `${t.toFixed(2)} s`);
+    set("vel", `${v.toFixed(1)} m/s`);
+    set("ke", `${(0.5 * state.mass * v * v).toFixed(0)} J`);
+    set("mom", `${(state.mass * v).toFixed(1)} kg·m/s`);
+
+    const fill = card.querySelector(".progress-fill");
+    if (fill) {
+        const progress = state.maxT > 0 ? Math.min(t / state.maxT, 1) : 1;
+        fill.style.width = `${(parseFloat(fill.dataset.full) * progress).toFixed(1)}%`;
+    }
+
+    const badge = card.querySelector(".card-impact-badge");
+    if (badge) {
+        const res = result || (simData && simData.results.find(r => r.planet === state.planet));
+        badge.textContent = state.landed && res ? res.impact_desc : "Falling…";
+    }
+    card.classList.toggle("landed", state.landed);
 }
 
 function updateCardLanded(planet) {
