@@ -789,3 +789,11 @@ footer a:hover {
         height: 400px;
     }
 }
+
+.result-card .progress-fill {
+    transition: width .08s linear;
+}
+
+.result-card .metric-value {
+    font-variant-numeric: tabular-nums;
+}
