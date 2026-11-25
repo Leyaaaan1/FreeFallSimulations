@@ -113,296 +113,6 @@
           rel="stylesheet" />
 
     <link rel="stylesheet" href="/static/css/style.css" />
-
-    <!-- ══ SEO SECTION STYLES ════════════════════════════════════════════════ -->
-    <style>
-        /* ── Variables (mirror your dark theme) ───────────────────────── */
-        :root {
-            --seo-bg:        #000000;
-            --seo-surface:   #111111;
-            --seo-border:    rgba(255,255,255,.08);
-            --seo-green:     #166534;
-            --seo-accent:    #ffffff;
-            --seo-gold:      #ffffff;
-            --seo-text:      #ffffff;
-            --seo-muted:     rgba(255,255,255,.75);
-            --seo-radius:    12px;
-            --font-mono:     'Space Mono', monospace;
-            --font-sans:     'Syne', sans-serif;
-        }
-
-        /* ── SEO Hero Strip (below app header) ───────────────────────── */
-        .seo-hero {
-            background: var(--seo-surface);
-            border-bottom: 1px solid var(--seo-border);
-            padding: 14px 5vw;
-            display: flex;
-            align-items: center;
-            gap: 28px;
-            flex-wrap: wrap;
-        }
-        .seo-hero__badge {
-            background: rgba(22,101,52,.4);
-            border: none;
-            border-radius: 6px;
-            padding: 4px 10px;
-            font-family: var(--font-mono);
-            font-size: .7rem;
-            color: var(--seo-accent);
-            letter-spacing: .06em;
-            white-space: nowrap;
-        }
-        .seo-hero__text {
-            font-family: var(--font-sans);
-            font-size: .82rem;
-            color: var(--seo-muted);
-            line-height: 1.5;
-        }
-        .seo-hero__text strong { color: var(--seo-text); }
-        .seo-hero__pills {
-            display: flex; gap: 12px; flex-wrap: wrap; margin-left: auto;
-        }
-        .seo-pill {
-            background: rgba(22,101,52,.4);
-            border: none;
-            color: var(--seo-gold);
-            font-family: var(--font-mono);
-            font-size: .65rem;
-            padding: 3px 9px;
-            border-radius: 20px;
-            letter-spacing: .04em;
-        }
-
-        /* ── Full SEO Content Block (below main app) ────────────────── */
-        .seo-content {
-            background: var(--seo-bg);
-            border-top: 1px solid var(--seo-border);
-            padding: 60px 5vw 80px;
-            color: var(--seo-text);
-            font-family: var(--font-sans);
-        }
-
-        /* grid layout */
-        .seo-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-            max-width: 1300px;
-            margin: 0 auto 48px;
-        }
-        @media(max-width:900px){
-            .seo-grid { grid-template-columns: 1fr; }
-        }
-        .seo-grid--3 { grid-template-columns: repeat(3,1fr); }
-        @media(max-width:900px){ .seo-grid--3 { grid-template-columns: 1fr; } }
-
-        .seo-card {
-            background: var(--seo-surface);
-            border: none;
-            border-radius: var(--seo-radius);
-            padding: 28px 28px 24px;
-        }
-        .seo-card h2, .seo-card h3 {
-            font-family: var(--font-sans);
-            font-weight: 800;
-            margin: 0 0 16px;
-            letter-spacing: -.01em;
-        }
-        .seo-card h2 { font-size: 1.15rem; color: var(--seo-accent); }
-        .seo-card h3 { font-size: 1rem; color: var(--seo-gold); }
-
-        .seo-section-title {
-            font-family: var(--font-sans);
-            font-weight: 800;
-            font-size: 1.45rem;
-            color: #ffffff;
-            margin: 0 auto 24px;
-            max-width: 1300px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--seo-border);
-            letter-spacing: -.02em;
-        }
-        .seo-section-title i { color: var(--seo-accent); margin-right: 8px; }
-
-        /* formula block */
-        .formula-box {
-            background: #000000;
-            border: none;
-            border-radius: 8px;
-            padding: 14px 18px;
-            font-family: var(--font-mono);
-            font-size: .82rem;
-            color: #ffffff;
-            line-height: 1.8;
-            margin: 14px 0;
-        }
-        .formula-box .var { color: #ffffff; font-weight: 700; }
-        .formula-box .eq  { color: #ffffff; }
-
-        /* planet table */
-        .planet-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: .82rem;
-            font-family: var(--font-mono);
-        }
-        .planet-table th {
-            background: rgba(22,101,52,.4);
-            color: var(--seo-accent);
-            font-size: .7rem;
-            letter-spacing: .06em;
-            text-transform: uppercase;
-            padding: 10px 12px;
-            border-bottom: 1px solid var(--seo-border);
-            text-align: left;
-        }
-        .planet-table td {
-            padding: 9px 12px;
-            border-bottom: 1px solid rgba(255,255,255,.05);
-            color: var(--seo-text);
-            vertical-align: middle;
-        }
-        .planet-table tr:last-child td { border-bottom: none; }
-        .planet-table tr:hover td { background: rgba(255,255,255,.04); }
-        .planet-emoji { font-size: 1rem; margin-right: 6px; }
-        .g-badge {
-            display: inline-block;
-            background: rgba(22,101,52,.4);
-            border-radius: 4px;
-            padding: 2px 6px;
-            color: var(--seo-accent);
-            font-size: .72rem;
-        }
-        .highlight-earth td { background: rgba(22,101,52,.25); }
-
-        /* FAQ accordion */
-        .faq-list { list-style: none; margin: 0; padding: 0; }
-        .faq-item {
-            border-bottom: 1px solid var(--seo-border);
-        }
-        .faq-q {
-            width: 100%;
-            background: none;
-            border: none;
-            padding: 18px 0;
-            text-align: left;
-            cursor: pointer;
-            color: var(--seo-text);
-            font-family: var(--font-sans);
-            font-size: .92rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: color .2s;
-        }
-        .faq-q:hover { color: var(--seo-accent); }
-        .faq-q i { color: var(--seo-accent); font-size: .8rem; transition: transform .25s; flex-shrink: 0; }
-        .faq-q.open i { transform: rotate(90deg); }
-        .faq-a {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height .35s ease, padding .25s;
-            font-size: .85rem;
-            color: var(--seo-muted);
-            line-height: 1.7;
-            padding: 0 0 0 24px;
-        }
-        .faq-a.open {
-            max-height: 300px;
-            padding: 0 0 18px 24px;
-        }
-        .faq-a code {
-            background: rgba(22,101,52,.4);
-            padding: 1px 6px;
-            border-radius: 4px;
-            font-family: var(--font-mono);
-            font-size: .78rem;
-            color: var(--seo-accent);
-        }
-
-        /* Concept cards */
-        .concept-card {
-            background: var(--seo-surface);
-            border: none;
-            border-radius: var(--seo-radius);
-            padding: 22px;
-            position: relative;
-            overflow: hidden;
-        }
-        .concept-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 2px;
-            background: var(--seo-green);
-        }
-        .concept-icon {
-            font-size: 1.6rem;
-            margin-bottom: 12px;
-            display: block;
-        }
-        .concept-card h3 {
-            font-family: var(--font-sans);
-            font-size: .9rem;
-            font-weight: 700;
-            color: #ffffff;
-            margin: 0 0 8px;
-        }
-        .concept-card p {
-            font-size: .8rem;
-            color: var(--seo-muted);
-            line-height: 1.6;
-            margin: 0;
-        }
-
-        /* uses list */
-        .uses-list {
-            list-style: none;
-            margin: 0; padding: 0;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        .uses-list li {
-            font-size: .82rem;
-            color: var(--seo-muted);
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-            line-height: 1.4;
-        }
-        .uses-list li i { color: var(--seo-accent); margin-top: 2px; flex-shrink: 0; }
-
-        /* internal link chips */
-        .topic-chips {
-            display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px;
-        }
-        .topic-chip {
-            background: rgba(22,101,52,.4);
-            border: none;
-            color: var(--seo-accent);
-            font-size: .72rem;
-            font-family: var(--font-mono);
-            padding: 4px 10px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: background .2s;
-        }
-        .topic-chip:hover { background: rgba(22,101,52,.6); }
-
-        /* footer SEO note */
-        .seo-footnote {
-            max-width: 1300px;
-            margin: 32px auto 0;
-            font-size: .75rem;
-            color: var(--seo-muted);
-            line-height: 1.7;
-            border-top: 1px solid var(--seo-border);
-            padding-top: 24px;
-            font-family: var(--font-mono);
-        }
-    </style>
 </head>
 <body>
 
@@ -517,8 +227,8 @@
         </div>
 
         <div class="speed-legend">
-            <span><i class="fa-solid fa-circle" style="color:#ffffff"></i> slow</span>
-            <span><i class="fa-solid fa-circle" style="color:#15803d"></i> fast</span>
+            <span><i class="fa-solid fa-circle"></i> slow</span>
+            <span><i class="fa-solid fa-circle"></i> fast</span>
         </div>
     </section>
 
@@ -557,20 +267,20 @@
         <!-- Core equations card -->
         <div class="seo-card">
             <h2>Core Free Fall Equations (Ideal, No Air Resistance)</h2>
-            <p style="font-size:.82rem;color:rgba(255,255,255,.75);line-height:1.6;margin-bottom:12px">
+            <p style="font-size:.82rem;color:#ffffff;line-height:1.6;margin-bottom:12px">
                 With no air resistance, all objects fall identically regardless of mass. These are the exact kinematic equations this simulator uses.
             </p>
             <div class="formula-box">
                 <span class="var">d</span> = ½ × <span class="var">g</span> × <span class="var">t</span>²
-                <span style="color:rgba(255,255,255,.75);font-size:.75rem"> &nbsp;← distance (m)</span><br/>
+                <span style="color:#ffffff;font-size:.75rem"> &nbsp;← distance (m)</span><br/>
                 <span class="var">v</span> = <span class="var">g</span> × <span class="var">t</span>
-                <span style="color:rgba(255,255,255,.75);font-size:.75rem"> &nbsp;← velocity (m/s)</span><br/>
+                <span style="color:#ffffff;font-size:.75rem"> &nbsp;← velocity (m/s)</span><br/>
                 <span class="var">t</span> = √(2<span class="var">d</span> / <span class="var">g</span>)
-                <span style="color:rgba(255,255,255,.75);font-size:.75rem"> &nbsp;← fall time (s)</span><br/>
+                <span style="color:#ffffff;font-size:.75rem"> &nbsp;← fall time (s)</span><br/>
                 <span class="var">v²</span> = 2 × <span class="var">g</span> × <span class="var">d</span>
-                <span style="color:rgba(255,255,255,.75);font-size:.75rem"> &nbsp;← velocity² shortcut</span>
+                <span style="color:#ffffff;font-size:.75rem"> &nbsp;← velocity² shortcut</span>
             </div>
-            <p style="font-size:.75rem;color:rgba(255,255,255,.75);margin:0">
+            <p style="font-size:.75rem;color:#ffffff;margin:0">
                 <strong style="color:#ffffff">d</strong> = distance (m) &nbsp;·&nbsp;
                 <strong style="color:#ffffff">g</strong> = gravity (m/s²) &nbsp;·&nbsp;
                 <strong style="color:#ffffff">t</strong> = time (s) &nbsp;·&nbsp;
@@ -581,18 +291,18 @@
         <!-- Energy card -->
         <div class="seo-card">
             <h2>Impact Energy &amp; Momentum</h2>
-            <p style="font-size:.82rem;color:rgba(255,255,255,.75);line-height:1.6;margin-bottom:12px">
+            <p style="font-size:.82rem;color:#ffffff;line-height:1.6;margin-bottom:12px">
                 Mass does not change how fast an object falls, but it does change how hard it hits. These values are computed from the exact impact velocity.
             </p>
             <div class="formula-box">
                 <span class="var">v</span> = √(2 <span class="var">g</span> <span class="var">h</span>)
-                <span style="color:rgba(255,255,255,.75);font-size:.75rem"> &nbsp;← impact velocity (m/s)</span><br/>
+                <span style="color:#ffffff;font-size:.75rem"> &nbsp;← impact velocity (m/s)</span><br/>
                 <span class="var">KE</span> = ½<span class="var">mv</span>² = <span class="var">mgh</span>
-                <span style="color:rgba(255,255,255,.75);font-size:.75rem"> &nbsp;← kinetic energy (J)</span><br/>
+                <span style="color:#ffffff;font-size:.75rem"> &nbsp;← kinetic energy (J)</span><br/>
                 <span class="var">p</span> = <span class="var">m</span> × <span class="var">v</span>
-                <span style="color:rgba(255,255,255,.75);font-size:.75rem"> &nbsp;← momentum (kg·m/s)</span>
+                <span style="color:#ffffff;font-size:.75rem"> &nbsp;← momentum (kg·m/s)</span>
             </div>
-            <p style="font-size:.75rem;color:rgba(255,255,255,.75);margin:0">
+            <p style="font-size:.75rem;color:#ffffff;margin:0">
                 <strong style="color:#ffffff">m</strong> = mass (kg) &nbsp;·&nbsp;
                 <strong style="color:#ffffff">h</strong> = drop height (m) &nbsp;·&nbsp;
                 <strong style="color:#ffffff">p</strong> = momentum
@@ -608,9 +318,9 @@
     </h2>
 
     <div class="seo-card" style="max-width:1300px;margin:0 auto 48px;overflow-x:auto">
-        <p style="font-size:.82rem;color:rgba(255,255,255,.75);margin:0 0 18px;line-height:1.6">
-            Using <code style="background:rgba(22,101,52,.4);padding:2px 6px;border-radius:4px;font-family:'Space Mono',monospace;font-size:.75rem;color:#ffffff">t = √(2h / g)</code> for fall time and
-            <code style="background:rgba(22,101,52,.4);padding:2px 6px;border-radius:4px;font-family:'Space Mono',monospace;font-size:.75rem;color:#ffffff">v = g × t</code> for impact velocity. Drop height h = 100 m, no air resistance.
+        <p style="font-size:.82rem;color:#ffffff;margin:0 0 18px;line-height:1.6">
+            Using <code style="background:#000000;border:1px solid #ffffff;padding:2px 6px;border-radius:0;font-family:'Space Mono',monospace;font-size:.75rem;color:#ffffff">t = √(2h / g)</code> for fall time and
+            <code style="background:#000000;border:1px solid #ffffff;padding:2px 6px;border-radius:0;font-family:'Space Mono',monospace;font-size:.75rem;color:#ffffff">v = g × t</code> for impact velocity. Drop height h = 100 m, no air resistance.
         </p>
         <table class="planet-table" aria-label="Free fall data for all planets">
             <thead>
@@ -688,7 +398,7 @@
             </tr>
             </tbody>
         </table>
-        <p style="font-size:.72rem;color:rgba(255,255,255,.75);margin:14px 0 0;font-family:'Space Mono',monospace">
+        <p style="font-size:.72rem;color:#ffffff;margin:14px 0 0;font-family:'Space Mono',monospace">
             Ideal free fall: constant surface gravity, no atmosphere. Run the simulator above to try other masses and heights.
         </p>
     </div>
@@ -835,7 +545,7 @@
 
     <!-- Topic chips for internal linking / keyword density -->
     <div style="max-width:1300px;margin:24px auto 0">
-        <p style="font-size:.75rem;color:rgba(255,255,255,.75);margin:0 0 10px;font-family:'Space Mono',monospace">Explore topics:</p>
+        <p style="font-size:.75rem;color:#ffffff;margin:0 0 10px;font-family:'Space Mono',monospace">Explore topics:</p>
         <div class="topic-chips">
             <span class="topic-chip">free fall formula</span>
             <span class="topic-chip">impact velocity calculator</span>
@@ -850,7 +560,7 @@
         </div>
     </div>
 
-    <div style="max-width:1300px;margin:48px auto 0;padding:28px;background:var(--seo-surface);border:none;border-radius:var(--seo-radius)">
+    <div style="max-width:1300px;margin:48px auto 0;padding:28px;background:var(--seo-surface);border:1px solid #ffffff;border-radius:var(--seo-radius)">
         <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
             <div>
                 <h3 style="font-family:var(--font-sans);font-weight:800;color:#ffffff;margin:0 0 8px;font-size:0.95rem">
@@ -860,15 +570,15 @@
                 <ul style="list-style:none;margin:8px 0 0;padding:0;font-size:0.82rem;color:var(--seo-muted)">
                     <li style="margin:4px 0">
                         <i class="fa-solid fa-envelope" style="color:var(--seo-accent);margin-right:6px"></i>
-                        <a href="mailto:paninsorolean@gmail.com" style="color:var(--seo-accent);text-decoration:none;transition:color 0.2s">paninsorolean@gmail.com</a>
+                        <a href="mailto:paninsorolean@gmail.com" style="color:var(--seo-accent);text-decoration:underline">paninsorolean@gmail.com</a>
                     </li>
                     <li style="margin:4px 0">
                         <i class="fa-brands fa-github" style="color:var(--seo-accent);margin-right:6px"></i>
-                        <a href="https://github.com/Leyaaaan1" target="_blank" style="color:var(--seo-accent);text-decoration:none;transition:color 0.2s">github.com/Leyaaaan1</a>
+                        <a href="https://github.com/Leyaaaan1" target="_blank" style="color:var(--seo-accent);text-decoration:underline">github.com/Leyaaaan1</a>
                     </li>
                     <li style="margin:4px 0">
                         <i class="fa-solid fa-code-branch" style="color:var(--seo-accent);margin-right:6px"></i>
-                        <a href="https://github.com/Leyaaaan1/FreeFallSimulations" target="_blank" style="color:var(--seo-accent);text-decoration:none;transition:color 0.2s">View Project Repository</a>
+                        <a href="https://github.com/Leyaaaan1/FreeFallSimulations" target="_blank" style="color:var(--seo-accent);text-decoration:underline">View Project Repository</a>
                     </li>
                 </ul>
             </div>
